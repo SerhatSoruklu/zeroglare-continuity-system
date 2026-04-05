@@ -1,0 +1,973 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZeroGlare | Coupyn Labs</title>
+  <meta name="description" content="ZeroGlare Continuity Systems by Coupyn Labs">
+  <meta name="theme-color" content="#020617">
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
+
+    :root {
+      --bg: #020617;
+      --bg-soft: #07111f;
+      --surface: rgba(8, 14, 27, 0.72);
+      --surface-strong: rgba(11, 19, 34, 0.92);
+      --border: rgba(154, 193, 255, 0.16);
+      --border-strong: rgba(154, 193, 255, 0.28);
+      --text: #f0f7ff;
+      --muted: rgba(226, 235, 246, 0.72);
+      --accent: #7ddcff;
+      --accent-2: #8fffe6;
+      --accent-3: #a18cff;
+      --shadow: 0 28px 90px rgba(2, 6, 23, 0.48);
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: "Space Grotesk", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(90, 146, 255, 0.22), transparent 34%),
+        radial-gradient(circle at 18% 16%, rgba(107, 255, 218, 0.10), transparent 24%),
+        radial-gradient(circle at 82% 24%, rgba(145, 119, 255, 0.10), transparent 22%),
+        linear-gradient(180deg, #020617 0%, #06101d 48%, #081521 100%);
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::before {
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      background-size: 82px 82px;
+      mask-image: radial-gradient(circle at center, black 26%, transparent 82%);
+      opacity: 0.44;
+    }
+
+    body::after {
+      background:
+        radial-gradient(circle at 50% 20%, rgba(86, 156, 255, 0.14), transparent 30%),
+        radial-gradient(circle at 12% 80%, rgba(143, 255, 230, 0.08), transparent 24%),
+        radial-gradient(circle at 88% 84%, rgba(161, 140, 255, 0.09), transparent 22%);
+      filter: blur(20px);
+    }
+
+    a,
+    button {
+      font: inherit;
+      color: inherit;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 26px 0 42px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(330px, 0.95fr);
+      gap: clamp(28px, 5vw, 60px);
+      align-items: center;
+      padding-top: 6px;
+    }
+
+    .hero-copy {
+      display: grid;
+      gap: 20px;
+      padding: clamp(18px, 3vw, 28px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(9, 15, 28, 0.72), rgba(9, 15, 28, 0.52));
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 12ch;
+      font-size: clamp(3rem, 7vw, 5.9rem);
+      line-height: 0.92;
+      letter-spacing: -0.06em;
+      text-wrap: balance;
+    }
+
+    .lead {
+      margin: 0;
+      max-width: 62ch;
+      font-size: clamp(1.02rem, 1.7vw, 1.18rem);
+      line-height: 1.72;
+      color: var(--muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0.9rem 1.35rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      text-decoration: none;
+      transition:
+        transform 180ms ease,
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        background 180ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      color: #03101b;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+      box-shadow: 0 16px 40px rgba(109, 220, 255, 0.22);
+      font-weight: 700;
+    }
+
+    .button-secondary {
+      border-color: var(--border-strong);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+    }
+
+    .price-tag {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 0.14rem;
+      padding: 0.85rem 1rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      min-width: 220px;
+    }
+
+    .price-tag strong {
+      color: var(--text);
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+    }
+
+    .price-tag small {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.76rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .stat {
+      padding: 16px 18px;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
+      backdrop-filter: blur(14px);
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .stat strong {
+      display: block;
+      margin-top: 0.6rem;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+    }
+
+    .stat small {
+      display: block;
+      margin-top: 0.25rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .visual-wrap {
+      position: relative;
+      display: grid;
+      gap: 14px;
+      align-self: stretch;
+    }
+
+    .visual-card {
+      position: relative;
+      min-height: 640px;
+      padding: 20px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(180deg, rgba(8, 13, 25, 0.88), rgba(8, 13, 25, 0.58)),
+        radial-gradient(circle at top, rgba(125, 220, 255, 0.18), transparent 34%);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .visual-card::before,
+    .visual-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .visual-card::before {
+      background: radial-gradient(circle at 50% 44%, rgba(125, 220, 255, 0.16), transparent 36%);
+      opacity: 0.85;
+    }
+
+    .visual-card::after {
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.024) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.024) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: radial-gradient(circle at center, black 24%, transparent 84%);
+      opacity: 0.4;
+    }
+
+    .visual-caption {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+      padding: 0 6px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .visual-caption strong {
+      color: var(--text);
+    }
+
+    .core {
+      position: relative;
+      width: min(100%, 470px);
+      aspect-ratio: 1;
+      margin: 0 auto;
+      display: grid;
+      place-items: center;
+      perspective: 1400px;
+    }
+
+    .orb {
+      position: absolute;
+      inset: 12%;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 34% 24%, rgba(255, 255, 255, 0.30), rgba(125, 220, 255, 0.18) 24%, rgba(9, 17, 32, 0.96) 58%, rgba(2, 6, 23, 0.98) 100%);
+      box-shadow:
+        inset 0 0 60px rgba(125, 220, 255, 0.12),
+        inset 0 0 120px rgba(161, 140, 255, 0.08),
+        0 0 70px rgba(91, 154, 255, 0.14);
+      animation: float 9s ease-in-out infinite;
+    }
+
+    .orb::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background:
+        linear-gradient(115deg, transparent 44%, rgba(255, 255, 255, 0.16) 50%, transparent 56%),
+        repeating-linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.08) 0 1px,
+          transparent 1px 10px
+        );
+      mask-image: radial-gradient(circle at center, black 34%, transparent 82%);
+      opacity: 0.4;
+    }
+
+    .orb::after {
+      content: "";
+      position: absolute;
+      inset: 12%;
+      border-radius: 50%;
+      border: 1px solid rgba(146, 202, 255, 0.18);
+      filter: blur(0.3px);
+      animation: pulse 6.5s ease-in-out infinite;
+    }
+
+    .ring {
+      position: absolute;
+      inset: 10%;
+      border-radius: 50%;
+      border: 1px solid rgba(141, 208, 255, 0.22);
+      transform-style: preserve-3d;
+      animation: drift 18s linear infinite;
+    }
+
+    .ring-one {
+      transform: rotateX(72deg) rotateZ(14deg);
+    }
+
+    .ring-two {
+      inset: 15%;
+      transform: rotateY(68deg) rotateZ(-8deg);
+      animation-duration: 22s;
+      animation-direction: reverse;
+    }
+
+    .ring-three {
+      inset: 22%;
+      transform: rotateX(20deg) rotateZ(30deg);
+      opacity: 0.5;
+      animation-duration: 26s;
+    }
+
+    .node {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      min-width: max-content;
+      padding: 0.58rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(7, 13, 25, 0.65);
+      backdrop-filter: blur(12px);
+      color: var(--text);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      transform: translate(-50%, -50%) translate3d(var(--x), var(--y), var(--z));
+      box-shadow: 0 12px 28px rgba(2, 6, 23, 0.25);
+    }
+
+    .node::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--node-accent, var(--accent));
+      box-shadow: 0 0 16px var(--node-accent, var(--accent));
+      flex: none;
+    }
+
+    .node[data-tone="memory"] { --node-accent: #7ddcff; }
+    .node[data-tone="shield"] { --node-accent: #8fffe6; }
+    .node[data-tone="relay"] { --node-accent: #a18cff; }
+    .node[data-tone="scan"] { --node-accent: #ffc66d; }
+    .node[data-tone="gate"] { --node-accent: #ff9f7a; }
+    .node[data-tone="archive"] { --node-accent: #72f1b8; }
+    .node[data-tone="orbit"] { --node-accent: #9ac3ff; }
+    .node[data-tone="seal"] { --node-accent: #c09cff; }
+
+    .core-label {
+      position: absolute;
+      inset: auto 50% 26px;
+      transform: translateX(-50%);
+      width: min(86%, 280px);
+      padding: 15px 18px;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      background: rgba(10, 16, 31, 0.72);
+      backdrop-filter: blur(14px);
+      text-align: center;
+      box-shadow: 0 16px 34px rgba(2, 6, 23, 0.25);
+    }
+
+    .core-label span {
+      display: block;
+      color: var(--accent);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .core-label strong {
+      display: block;
+      margin-top: 0.45rem;
+      font-size: 1.06rem;
+      letter-spacing: -0.02em;
+    }
+
+    .core-label small {
+      display: block;
+      margin-top: 0.34rem;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
+    .section {
+      margin-top: 32px;
+      padding: clamp(20px, 3vw, 32px);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(9, 15, 28, 0.74), rgba(9, 15, 28, 0.52));
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+    }
+
+    .section-head {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.7rem, 4vw, 2.7rem);
+      letter-spacing: -0.05em;
+      line-height: 1;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 66ch;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      padding: 20px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      min-height: 190px;
+    }
+
+    .card span {
+      display: block;
+      color: var(--accent);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .card h3 {
+      margin: 0.55rem 0 0;
+      font-size: 1.2rem;
+      letter-spacing: -0.03em;
+    }
+
+    .card p {
+      margin: 0.9rem 0 0;
+      color: var(--muted);
+      line-height: 1.68;
+    }
+
+    .why {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .why-panel {
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
+    }
+
+    .why-panel p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .why-stack {
+      display: grid;
+      gap: 12px;
+    }
+
+    .why-item {
+      padding: 18px 18px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .why-item strong {
+      display: block;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .why-item p {
+      margin: 0.45rem 0 0;
+      color: var(--muted);
+      line-height: 1.62;
+    }
+
+    .dest-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .dest {
+      display: grid;
+      gap: 10px;
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .dest[data-state="green"] {
+      border-color: rgba(134, 255, 209, 0.26);
+    }
+
+    .dest[data-state="amber"] {
+      border-color: rgba(255, 198, 109, 0.24);
+    }
+
+    .dest[data-state="restricted"] {
+      border-color: rgba(255, 145, 145, 0.22);
+    }
+
+    .dest strong {
+      font-size: 1.15rem;
+      letter-spacing: -0.03em;
+    }
+
+    .dest small {
+      color: var(--muted);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .dest p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.66;
+    }
+
+    .scan {
+      margin-top: 16px;
+      padding: 20px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
+    }
+
+    .scan h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      letter-spacing: -0.03em;
+    }
+
+    .scan p {
+      margin: 0.7rem 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .scan-bar {
+      margin-top: 16px;
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .scan-bar span {
+      display: block;
+      width: 72%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 24px rgba(125, 220, 255, 0.24);
+    }
+
+    .footer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      justify-content: space-between;
+      padding: 22px 6px 6px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .footer span:last-child {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    @keyframes float {
+      0%,
+      100% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+      }
+
+      50% {
+        transform: translate3d(0, -7px, 0) rotate(1deg);
+      }
+    }
+
+    @keyframes pulse {
+      0%,
+      100% {
+        opacity: 0.4;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.78;
+        transform: scale(1.02);
+      }
+    }
+
+    @keyframes drift {
+      from {
+        transform: rotateZ(0deg);
+      }
+
+      to {
+        transform: rotateZ(360deg);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .cards,
+      .dest-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .why {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      main {
+        width: min(100%, calc(100% - 18px));
+        padding-top: 14px;
+      }
+
+      .hero-copy,
+      .section,
+      .visual-card {
+        border-radius: 28px;
+      }
+
+      .stats,
+      .cards,
+      .dest-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .visual-card {
+        min-height: 540px;
+        padding: 16px;
+      }
+
+      .core {
+        width: min(100%, 420px);
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .price-tag {
+        min-width: 0;
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Coupyn Labs.</p>
+        <h1 id="hero-title">ZeroGlare Continuity Systems</h1>
+        <p class="lead">
+          Snapshot the structure of a mind into a protected antiquantum continuity server.
+          Keep the pattern stable, inspectable, and ready for a controlled restore.
+        </p>
+
+        <div class="hero-actions">
+          <a class="button button-primary" href="#destination">Snapshot your memories</a>
+          <a class="button button-secondary" href="#how">See how it works</a>
+          <div class="price-tag" aria-label="Snapshot price">
+            <strong>Z&#x20A0; 1,000,000</strong>
+            <small>&asymp; US$1,000,000</small>
+          </div>
+        </div>
+
+        <div class="stats" aria-label="System highlights">
+          <article class="stat">
+            <span>Continuity vault</span>
+            <strong>ZeroGlare substrate</strong>
+            <small>Protected space for structured memory snapshots.</small>
+          </article>
+          <article class="stat">
+            <span>State</span>
+            <strong>Inspectable and sealed</strong>
+            <small>Readable enough for review, hard enough for noise reduction.</small>
+          </article>
+          <article class="stat">
+            <span>Core visual</span>
+            <strong>Turnable signal globe</strong>
+            <small>Animated sphere at the center of the concept.</small>
+          </article>
+          <article class="stat">
+            <span>Destination scan</span>
+            <strong>Solar system access</strong>
+            <small>Targets are screened before any route is considered safe.</small>
+          </article>
+        </div>
+      </div>
+
+      <div class="visual-wrap" aria-label="ZeroGlare visual system">
+        <div class="visual-card">
+          <div class="visual-caption">
+            <span>Interactive core</span>
+            <strong>Inspect the signal</strong>
+          </div>
+
+          <div class="core" aria-hidden="true">
+            <div class="orb"></div>
+            <div class="ring ring-one"></div>
+            <div class="ring ring-two"></div>
+            <div class="ring ring-three"></div>
+
+            <div class="node" data-tone="memory" style="--x:-118px; --y:-56px; --z:38px;">Memory lattice</div>
+            <div class="node" data-tone="relay" style="--x:104px; --y:-76px; --z:-10px;">Noetic relay</div>
+            <div class="node" data-tone="shield" style="--x:-146px; --y:28px; --z:-6px;">Entropy shield</div>
+            <div class="node" data-tone="gate" style="--x:124px; --y:40px; --z:24px;">Continuity gate</div>
+            <div class="node" data-tone="scan" style="--x:-34px; --y:-146px; --z:5px;">Solar scan</div>
+            <div class="node" data-tone="archive" style="--x:8px; --y:140px; --z:-12px;">Signal archive</div>
+            <div class="node" data-tone="orbit" style="--x:150px; --y:116px; --z:-8px;">Orbit lock</div>
+            <div class="node" data-tone="seal" style="--x:-136px; --y:110px; --z:18px;">Identity seal</div>
+
+            <div class="core-label">
+              <span>Inspectable core</span>
+              <strong>Turnable continuity globe</strong>
+              <small>Static CSS concept with a premium orbital readout.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how" aria-labelledby="how-title">
+      <div class="section-head">
+        <p class="eyebrow">How this tech works</p>
+        <h2 id="how-title">A continuity trace is captured, sealed, and restored</h2>
+        <p>
+          ZeroGlare frames the process as a stable pattern pipeline: record the signal, isolate it
+          in a protected substrate, then rehydrate it only when the system can verify a safe return.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <span>01 / capture</span>
+          <h3>Trace the signal</h3>
+          <p>
+            Memory edges, response timing, and identity anchors are folded into a structured
+            continuity map instead of being flattened into a single blob.
+          </p>
+        </article>
+        <article class="card">
+          <span>02 / seal</span>
+          <h3>Lock the substrate</h3>
+          <p>
+            The snapshot sits inside a hardened ZeroGlare layer that keeps drift, noise, and
+            uncontrolled interference away from the live profile.
+          </p>
+        </article>
+        <article class="card">
+          <span>03 / restore</span>
+          <h3>Reopen the pattern</h3>
+          <p>
+            When a destination clears the scan, the system can reopen the trace and restore it as a
+            readable continuity shell.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="why" aria-labelledby="why-title">
+      <div class="section-head">
+        <p class="eyebrow">Why it works</p>
+        <h2 id="why-title">The system is built around pattern fidelity, not hype</h2>
+      </div>
+
+      <div class="why">
+        <div class="why-panel">
+          <p>
+            The concept is credible because it treats continuity as an architecture problem: keep
+            the signal legible, isolate it from noise, and expose enough structure for an operator
+            to audit before any restore sequence is allowed.
+          </p>
+        </div>
+
+        <div class="why-stack">
+          <article class="why-item">
+            <strong>Pattern over payload</strong>
+            <p>The system focuses on the shape of continuity instead of pretending the raw body is the product.</p>
+          </article>
+          <article class="why-item">
+            <strong>Isolation over drift</strong>
+            <p>ZeroGlare language frames the server as a protected layer that resists interference and entropy.</p>
+          </article>
+          <article class="why-item">
+            <strong>Inspection over blind trust</strong>
+            <p>The interface keeps the result readable, so the concept feels deliberate instead of vague.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="destination" aria-labelledby="destination-title">
+      <div class="section-head">
+        <p class="eyebrow">Destination access</p>
+        <h2 id="destination-title">Scan a world before the access window opens</h2>
+        <p>
+          The route is screened for thermal load, radiation, and local activity signatures. If the
+          scan clears, ZeroGlare marks the destination as a viable place to route the continuity shell.
+        </p>
+      </div>
+
+      <div class="dest-grid">
+        <article class="dest" data-state="amber">
+          <small>Mercury</small>
+          <strong>0.39 AU / 57.9 million km</strong>
+          <p>Thermal envelope unstable. Scan only, no resident access.</p>
+        </article>
+        <article class="dest" data-state="restricted">
+          <small>Venus</small>
+          <strong>0.72 AU / 108.2 million km</strong>
+          <p>Pressure field locked. Any route remains restricted by default.</p>
+        </article>
+        <article class="dest" data-state="green">
+          <small>Mars</small>
+          <strong>1.52 AU / 227.9 million km</strong>
+          <p>Best near-term candidate. Strongest fit for a low-interference shell.</p>
+        </article>
+        <article class="dest" data-state="green">
+          <small>Earth</small>
+          <strong>1.00 AU / 149.6 million km</strong>
+          <p>Baseline anchor world. Familiar signal geometry and stable routing.</p>
+        </article>
+        <article class="dest" data-state="amber">
+          <small>Jupiter</small>
+          <strong>5.20 AU / 778.5 million km</strong>
+          <p>Deep-field only. High activity density and heavy environmental load.</p>
+        </article>
+        <article class="dest" data-state="amber">
+          <small>Saturn</small>
+          <strong>9.58 AU / 1.43 billion km</strong>
+          <p>Ring interference zone. Visually powerful, but access remains cautious.</p>
+        </article>
+      </div>
+
+      <div class="scan">
+        <h3>Scan verdict</h3>
+        <p>
+          The current concept language keeps the destination promise grounded: we scan the planet,
+          read the activity profile, and only then mark it as safe for access.
+        </p>
+        <div class="scan-bar" aria-hidden="true">
+          <span></span>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>Coupyn Labs.</span>
+      <span>ZeroGlare Continuity Systems</span>
+      <span>Static conceptual landing page</span>
+    </footer>
+  </main>
+</body>
+</html>
