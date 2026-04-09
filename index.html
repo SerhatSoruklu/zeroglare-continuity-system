@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZeroGlare | Coupyn Labs</title>
-  <meta name="description" content="ZeroGlare Continuity Systems by Coupyn Labs">
+  <title>Parity Pendulum | Coupyn Labs</title>
+  <meta name="description" content="Parity Pendulum with Safe, Unsafe, Engine, and Large-count lab modes by Coupyn Labs">
   <meta name="theme-color" content="#020617">
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
@@ -170,6 +170,14 @@
       border-color: var(--border-strong);
       background: rgba(255, 255, 255, 0.03);
       color: var(--text);
+    }
+
+    .button.pendulum-button.is-active {
+      border-color: rgba(125, 220, 255, 0.4);
+      box-shadow:
+        0 0 0 4px rgba(125, 220, 255, 0.12),
+        0 18px 42px rgba(109, 220, 255, 0.18);
+      transform: translateY(-2px) scale(1.02);
     }
 
     .price-tag {
@@ -345,6 +353,15 @@
       animation: pulse 6.5s ease-in-out infinite;
     }
 
+    .core.is-pulsing .orb {
+      animation: float 1.3s ease-in-out 1;
+    }
+
+    .core.is-pulsing .orb::after {
+      animation: pulse 0.8s ease-in-out 1;
+      border-color: rgba(143, 255, 230, 0.38);
+    }
+
     .ring {
       position: absolute;
       inset: 10%;
@@ -471,6 +488,7 @@
       font-size: clamp(1.7rem, 4vw, 2.7rem);
       letter-spacing: -0.05em;
       line-height: 1;
+      overflow-wrap: anywhere;
     }
 
     .section-head p {
@@ -507,6 +525,7 @@
       margin: 0.55rem 0 0;
       font-size: 1.2rem;
       letter-spacing: -0.03em;
+      overflow-wrap: anywhere;
     }
 
     .card p {
@@ -760,9 +779,1994 @@
         scroll-behavior: auto !important;
       }
     }
+
+    #root {
+      display: none !important;
+    }
+
+    #root.is-visible {
+      display: block !important;
+    }
+
+    body.engine-mode > main {
+      display: none !important;
+    }
+
+    .app-shell {
+      display: grid;
+      gap: 0;
+    }
+
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .workspace-stack {
+      display: grid;
+      gap: 16px;
+    }
+
+    .mode-switcher {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .mode-pill {
+      display: grid;
+      gap: 0.2rem;
+      text-align: left;
+      width: 100%;
+      min-height: 84px;
+      padding: 14px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      box-shadow: none;
+      cursor: pointer;
+    }
+
+    .mode-pill strong {
+      font-size: 1rem;
+      letter-spacing: -0.03em;
+    }
+
+    .mode-pill small {
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .mode-pill.is-active {
+      border-color: var(--border-strong);
+      background: linear-gradient(180deg, rgba(125, 220, 255, 0.10), rgba(255, 255, 255, 0.035));
+      box-shadow: 0 16px 36px rgba(3, 17, 33, 0.28);
+      transform: translateY(-1px);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.42rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font-size: 0.72rem;
+      line-height: 1;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .badge[data-tone="good"] {
+      border-color: rgba(143, 255, 230, 0.24);
+      color: #8fffe6;
+      background: rgba(143, 255, 230, 0.08);
+    }
+
+    .badge[data-tone="warn"] {
+      border-color: rgba(255, 198, 109, 0.24);
+      color: #ffc66d;
+      background: rgba(255, 198, 109, 0.08);
+    }
+
+    .badge[data-tone="bad"] {
+      border-color: rgba(255, 145, 145, 0.24);
+      color: #ff9c9c;
+      background: rgba(255, 145, 145, 0.08);
+    }
+
+    .badge[data-tone="info"] {
+      border-color: rgba(125, 220, 255, 0.24);
+      color: #7ddcff;
+      background: rgba(125, 220, 255, 0.08);
+    }
+
+    .field-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      min-width: 0;
+    }
+
+    .field-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .field-hint {
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.4;
+      text-align: right;
+      overflow-wrap: anywhere;
+      min-width: 0;
+    }
+
+    .input,
+    .textarea {
+      width: 100%;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: rgba(4, 10, 20, 0.78);
+      color: var(--text);
+      outline: none;
+      transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease;
+    }
+
+    .input:focus,
+    .textarea:focus {
+      border-color: var(--border-strong);
+      box-shadow: 0 0 0 4px rgba(125, 220, 255, 0.10);
+    }
+
+    .input {
+      min-height: 50px;
+      padding: 0.85rem 1rem;
+    }
+
+    .textarea {
+      min-height: 280px;
+      resize: vertical;
+      padding: 1rem;
+      font-family: "IBM Plex Mono", monospace;
+      line-height: 1.65;
+    }
+
+    .textarea[readonly] {
+      cursor: not-allowed;
+      opacity: 0.82;
+    }
+
+    .control-card.card,
+    .status-card.card,
+    .meter-card.card,
+    .lab-card.card,
+    .formatter-card.card {
+      min-height: 0;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.34rem 0.68rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .chip.is-active {
+      color: var(--text);
+      border-color: var(--border-strong);
+      background: rgba(125, 220, 255, 0.10);
+    }
+
+    .segmented {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .segment {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0.52rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      cursor: pointer;
+      transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease,
+        background 180ms ease;
+    }
+
+    .segment:hover {
+      transform: translateY(-1px);
+      border-color: var(--border-strong);
+    }
+
+    .segment.is-active {
+      color: var(--text);
+      border-color: var(--border-strong);
+      background: linear-gradient(135deg, rgba(125, 220, 255, 0.18), rgba(143, 255, 230, 0.10));
+      box-shadow: 0 10px 28px rgba(125, 220, 255, 0.12);
+    }
+
+    .segment small {
+      margin-left: 0.45rem;
+      font-family: "IBM Plex Mono", monospace;
+      letter-spacing: 0.08em;
+      color: inherit;
+      opacity: 0.8;
+    }
+
+    .quick-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .quick-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      cursor: pointer;
+      transition:
+        transform 180ms ease,
+        border-color 180ms ease,
+        background 180ms ease;
+    }
+
+    .quick-button:hover {
+      transform: translateY(-1px);
+      border-color: var(--border-strong);
+    }
+
+    .preview-window {
+      margin: 0;
+      padding: 16px;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02)),
+        rgba(3, 8, 17, 0.8);
+      color: var(--text);
+      font-family: "IBM Plex Mono", monospace;
+      line-height: 1.72;
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+
+    .meter-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .meter {
+      display: grid;
+      gap: 8px;
+    }
+
+    .meter-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      min-width: 0;
+    }
+
+    .meter-head span {
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .meter-head strong {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      overflow-wrap: anywhere;
+      text-align: right;
+    }
+
+    .meter-track {
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .meter-fill {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 24px rgba(125, 220, 255, 0.22);
+    }
+
+    .meter small {
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .status-card {
+      padding: 18px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .status-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .status-card strong {
+      display: block;
+      margin-top: 0.55rem;
+      font-size: 1.04rem;
+      letter-spacing: -0.03em;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .status-card small {
+      display: block;
+      margin-top: 0.3rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .milestone-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .milestone {
+      display: grid;
+      gap: 0.35rem;
+      justify-items: center;
+      min-height: 92px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .milestone.is-active {
+      border-color: rgba(125, 220, 255, 0.3);
+      background: rgba(125, 220, 255, 0.08);
+    }
+
+    .milestone span {
+      color: var(--muted);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .milestone strong {
+      max-width: 100%;
+      font-size: 0.82rem;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .check-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .check-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .check-row strong,
+    .check-row small {
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      min-width: 0;
+    }
+
+    .check-row strong {
+      display: block;
+      font-size: 0.95rem;
+      letter-spacing: -0.02em;
+    }
+
+    .check-row small {
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .check-summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .note-card {
+      padding: 20px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
+    }
+
+    .note-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .readout-group {
+      display: grid;
+      gap: 12px;
+    }
+
+    @media (max-width: 980px) {
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .status-grid,
+      .milestone-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .mode-switcher,
+      .status-grid,
+      .milestone-row {
+        grid-template-columns: 1fr;
+      }
+
+      .field-head,
+      .meter-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
   </style>
 </head>
 <body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script>
+    (() => {
+      const { createElement: h, Fragment, useEffect, useMemo, useState } = React;
+
+      const MODE_CONFIG = {
+        safe: {
+          label: "Safe",
+          detail: "Textarea-bound and capped at 250,000 chars.",
+          cap: 250000n,
+          source: "Render-bound",
+        },
+        unsafe: {
+          label: "Unsafe",
+          detail: "Textarea-bound and capped at 5,000,000 chars.",
+          cap: 5000000n,
+          source: "Render-bound",
+        },
+        engine: {
+          label: "Engine",
+          detail: "Symbolic, logic-bound, and textarea-free for giant lengths.",
+          cap: 1000000000000000000n,
+          source: "Engine-bound",
+        },
+      };
+
+      const FORBIDDEN_LETTER = "x";
+      const SCALE_MAX = 1000000000000000000n;
+      const ENGINE_HARD_STOP = 10n ** 3003n;
+      const SCALE_NAME_BUDGET_MS = 60;
+      const QUICK_LENGTHS = [
+        1000n,
+        1000000n,
+        1000000000n,
+        1000000000000n,
+        1000000000000000n,
+        1000000000000000000n,
+      ];
+      const SCALE_MILESTONES = [
+        { label: "thousand", value: 1000n },
+        { label: "million", value: 1000000n },
+        { label: "billion", value: 1000000000n },
+        { label: "trillion", value: 1000000000000n },
+        { label: "quadrillion", value: 1000000000000000n },
+        { label: "quintillion", value: 1000000000000000000n },
+      ];
+
+      const SMALL_WORDS = [
+        "zero",
+        "one",
+        "two",
+        "three",
+        "four",
+        "five",
+        "six",
+        "seven",
+        "eight",
+        "nine",
+        "ten",
+        "eleven",
+        "twelve",
+        "thirteen",
+        "fourteen",
+        "fifteen",
+        "sixteen",
+        "seventeen",
+        "eighteen",
+        "nineteen",
+      ];
+      const TENS_WORDS = [
+        "",
+        "",
+        "twenty",
+        "thirty",
+        "forty",
+        "fifty",
+        "sixty",
+        "seventy",
+        "eighty",
+        "ninety",
+      ];
+      const REAL_SCALE_NAMES = new Map([
+        [1, "thousand"],
+        [2, "million"],
+        [3, "billion"],
+        [4, "trillion"],
+        [5, "quadrillion"],
+        [6, "quintillion"],
+        [7, "sextillion"],
+        [8, "septillion"],
+        [9, "octillion"],
+        [10, "nonillion"],
+        [11, "decillion"],
+        [12, "undecillion"],
+        [13, "duodecillion"],
+        [14, "tredecillion"],
+        [15, "quattuordecillion"],
+        [16, "quindecillion"],
+        [17, "sexdecillion"],
+        [18, "septendecillion"],
+        [19, "octodecillion"],
+        [20, "novemdecillion"],
+        [21, "vigintillion"],
+        [101, "centillion"],
+        [1001, "millinillion"],
+      ]);
+      const VERIFIED_REAL_SCALE_CEILING_INDEX = 1001;
+      const VERIFIED_REAL_SCALE_CEILING_LABEL = REAL_SCALE_NAMES.get(VERIFIED_REAL_SCALE_CEILING_INDEX) || "millinillion";
+
+      const UNIT_PREFIXES = {
+        0: "",
+        1: "un",
+        2: "duo",
+        3: "tre",
+        4: "quattuor",
+        5: "quinqua",
+        6: "sex",
+        7: "septen",
+        8: "octo",
+        9: "novem",
+      };
+
+      const TENS_PREFIXES = {
+        0: "",
+        1: "deci",
+        2: "vigint",
+        3: "trigint",
+        4: "quadragint",
+        5: "quinquagint",
+        6: "sexagint",
+        7: "septuagint",
+        8: "octogint",
+        9: "nonagint",
+      };
+
+      const HUNDREDS_PREFIXES = {
+        0: "",
+        1: "cent",
+        2: "ducent",
+        3: "trecent",
+        4: "quadringent",
+        5: "quingent",
+        6: "sescent",
+        7: "septingent",
+        8: "octingent",
+        9: "nongent",
+      };
+
+      const FORMATTER_SAMPLES = [
+        { value: 0n, expected: "zero", label: "Zero" },
+        { value: 1000n, expected: "one thousand", label: "Thousand" },
+        { value: 1000000n, expected: "one million", label: "Million" },
+        { value: 1000000000n, expected: "one billion", label: "Billion" },
+        { value: 1000000000000n, expected: "one trillion", label: "Trillion" },
+        { value: 1000000000000000n, expected: "one quadrillion", label: "Quadrillion" },
+        { value: 1000000000000000000n, expected: "one quintillion", label: "Quintillion" },
+        { value: 1000000000000000000000n, expected: "one sextillion", label: "Sextillion" },
+        { value: 10n ** 63n, expected: "one vigintillion", label: "Vigintillion" },
+        { value: 10n ** 303n, expected: "one centillion", label: "Centillion" },
+        { value: ENGINE_HARD_STOP, expected: "one millinillion", label: "Millinillion" },
+        { value: 10n ** 3006n, expected: "greater than millinillion", label: "Boundary clamp" },
+      ];
+
+      function cx(...parts) {
+        return parts.filter(Boolean).join(" ");
+      }
+
+      function clampBigInt(value, min, max) {
+        if (value < min) return min;
+        if (value > max) return max;
+        return value;
+      }
+
+      function parseBigIntInput(raw, fallback) {
+        const digits = String(raw).replace(/[^\d]/g, "");
+        if (!digits) {
+          return fallback;
+        }
+        try {
+          return BigInt(digits);
+        } catch {
+          return fallback;
+        }
+      }
+
+      function formatBigInt(value) {
+        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+
+      function truncateLabel(text, limit) {
+        if (text.length <= limit) {
+          return text;
+        }
+        return `${text.slice(0, Math.max(0, limit - 1))}…`;
+      }
+
+      function escapeRegExp(text) {
+        return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      }
+
+      function containsLetter(text, letter) {
+        const lower = letter.toLowerCase();
+        const upper = letter.toUpperCase();
+        for (let index = 0; index < text.length; index += 1) {
+          const char = text[index];
+          if (char === lower || char === upper) {
+            return true;
+          }
+        }
+        return false;
+      }
+
+      function containsWord(text, word) {
+        if (!word) {
+          return false;
+        }
+        return new RegExp(escapeRegExp(word), "i").test(text);
+      }
+
+      function chunkToWords(value) {
+        const n = Number(value);
+        if (n === 0) {
+          return "";
+        }
+
+        const parts = [];
+        const hundreds = Math.floor(n / 100);
+        const remainder = n % 100;
+
+        if (hundreds) {
+          parts.push(SMALL_WORDS[hundreds], "hundred");
+        }
+
+        if (remainder >= 20) {
+          parts.push(TENS_WORDS[Math.floor(remainder / 10)]);
+          const ones = remainder % 10;
+          if (ones) {
+            parts.push(SMALL_WORDS[ones]);
+          }
+        } else if (remainder >= 10) {
+          parts.push(SMALL_WORDS[remainder]);
+        } else if (remainder > 0) {
+          parts.push(SMALL_WORDS[remainder]);
+        }
+
+        return parts.join(" ");
+      }
+
+      function buildGeneratedIllionName(scaleIndex) {
+        const base = Math.max(0, scaleIndex - 1);
+        const hundreds = Math.floor(base / 100) % 10;
+        const tens = Math.floor(base / 10) % 10;
+        const units = base % 10;
+        const parts = [
+          UNIT_PREFIXES[units] || "",
+          TENS_PREFIXES[tens] || "",
+          HUNDREDS_PREFIXES[hundreds] || "",
+        ].filter(Boolean);
+
+        if (!parts.length) {
+          return "thousand";
+        }
+
+        return `${parts.join("")}illion`;
+      }
+
+      function getScaleLabel(scaleIndex, budgetMs = SCALE_NAME_BUDGET_MS) {
+        if (scaleIndex === 0) {
+          return {
+            label: "",
+            type: "real",
+            sourceLabel: "verified real table",
+            boundaryStatus: "within supported range",
+            isVerified: true,
+          };
+        }
+
+        const real = REAL_SCALE_NAMES.get(scaleIndex);
+        if (real) {
+          return {
+            label: real,
+            type: "real",
+            sourceLabel: "verified real table",
+            boundaryStatus: scaleIndex === VERIFIED_REAL_SCALE_CEILING_INDEX ? "highest supported real entry" : "within supported range",
+            isVerified: true,
+          };
+        }
+
+        if (scaleIndex > VERIFIED_REAL_SCALE_CEILING_INDEX) {
+          return {
+            label: `greater than ${VERIFIED_REAL_SCALE_CEILING_LABEL}`,
+            type: "generated-limit",
+            sourceLabel: "unresolved beyond verified real scale table",
+            boundaryStatus: "outside supported boundary",
+            isVerified: false,
+          };
+        }
+
+        const started = performance.now();
+        const generated = buildGeneratedIllionName(scaleIndex);
+        if (performance.now() - started > budgetMs) {
+          return {
+            label: `greater than ${VERIFIED_REAL_SCALE_CEILING_LABEL}`,
+            type: "generated-limit",
+            sourceLabel: "unresolved beyond verified real scale table",
+            boundaryStatus: "outside supported boundary",
+            isVerified: false,
+          };
+        }
+
+        return {
+          label: generated,
+          type: "generated",
+          sourceLabel: "generated helper",
+          boundaryStatus: "within supported range",
+          isVerified: false,
+        };
+      }
+
+      function getDominantScaleDescriptor(value, budgetMs = SCALE_NAME_BUDGET_MS) {
+        const magnitude = value < 0n ? -value : value;
+        if (magnitude < 1000n) {
+          return {
+            label: "sub-thousand",
+            type: "real",
+            sourceLabel: "verified real table",
+            boundaryStatus: "within supported range",
+            group: 0,
+            isVerified: true,
+          };
+        }
+
+        const digits = magnitude.toString().length;
+        const group = Math.floor((digits - 1) / 3);
+        const labelInfo = getScaleLabel(group, budgetMs);
+        return { ...labelInfo, group };
+      }
+
+      function numberToWords(value) {
+        let current = typeof value === "bigint" ? value : BigInt(value);
+        if (current === 0n) {
+          return "zero";
+        }
+        if (current < 0n) {
+          return `minus ${numberToWords(-current)}`;
+        }
+
+        const parts = [];
+        let scaleIndex = 0;
+
+        while (current > 0n) {
+          const chunk = Number(current % 1000n);
+          if (chunk) {
+            const words = chunkToWords(chunk);
+            const scaleWordInfo = getScaleLabel(scaleIndex);
+            if (scaleWordInfo.type === "generated-limit") {
+              return scaleWordInfo.label;
+            }
+            parts.push(scaleWordInfo.label ? `${words} ${scaleWordInfo.label}` : words);
+          }
+          current /= 1000n;
+          scaleIndex += 1;
+        }
+
+        return parts.reverse().join(" ");
+      }
+
+      function clampPercent(value) {
+        return Math.max(0, Math.min(100, Math.round(value)));
+      }
+
+      function pressureFromLength(length, cap, options = {}) {
+        const lengthRatio = cap > 0 ? (length / cap) * 100 : 0;
+        const textareaPenalty = options.textareaMounted ? 10 : 0;
+        const scanPenalty = options.fullScanActive ? 12 : 0;
+        const nearCapBoost = lengthRatio > 80 ? 15 : 0;
+        const base = lengthRatio * 0.7;
+        return clampPercent(base + textareaPenalty + scanPenalty + nearCapBoost);
+      }
+
+      function pressureFromEngineState(dominantScale, previewLength, engineStrategy, previewAnalysisActive) {
+        if (dominantScale.boundaryStatus === "outside supported boundary") {
+          return 95;
+        }
+
+        const scaleIndex = Math.max(0, dominantScale.group || 0);
+        const scaleBandPressure = scaleIndex === 0 ? 5 : Math.min(80, Math.round(Math.log10(scaleIndex + 1) * 22 + 8));
+        const strategyPenalty = engineStrategy === "derived" ? 6 : 0;
+        const previewPenalty = Math.min(8, Math.round(previewLength / 18));
+        const analysisPenalty = previewAnalysisActive ? 4 : 0;
+        return clampPercent(scaleBandPressure + strategyPenalty + previewPenalty + analysisPenalty);
+      }
+
+      function pressureFromBoundary(dominantScale) {
+        if (dominantScale.boundaryStatus === "highest supported real entry") {
+          return 70;
+        }
+
+        if (dominantScale.boundaryStatus === "outside supported boundary") {
+          return 100;
+        }
+
+        if (dominantScale.sourceLabel === "generated helper") {
+          return Math.min(24, Math.max(8, Math.round((dominantScale.group || 0) / 40)));
+        }
+
+        return 0;
+      }
+
+      function getPressureSourceLabel(mode, labEnabled, dominantScale) {
+        if (labEnabled) {
+          return "Symbolic override";
+        }
+
+        if (dominantScale.boundaryStatus === "highest supported real entry" || dominantScale.boundaryStatus === "outside supported boundary") {
+          return "Boundary-limited";
+        }
+
+        return mode === "engine" ? "Engine-bound" : "Render-bound";
+      }
+
+      function getScaleBand(value) {
+        const magnitude = value < 0n ? -value : value;
+        let active = { label: "sub-thousand", value: 0n };
+        for (const band of SCALE_MILESTONES) {
+          if (magnitude >= band.value) {
+            active = band;
+          }
+        }
+        return active;
+      }
+
+      function resolveTriState(override, fallback) {
+        return override === null ? fallback : override;
+      }
+
+      function Badge({ tone = "info", children }) {
+        return h("span", { className: "badge", "data-tone": tone }, children);
+      }
+
+      function Segmented({ value, options, onChange, ariaLabel }) {
+        return h(
+          "div",
+          { className: "segmented", role: "group", "aria-label": ariaLabel },
+          options.map((option) =>
+            h(
+              "button",
+              {
+                key: String(option.value),
+                type: "button",
+                className: cx("segment", Object.is(option.value, value) && "is-active"),
+                onClick: () => onChange(option.value),
+                "aria-pressed": Object.is(option.value, value),
+              },
+              option.label,
+              option.detail ? h("small", null, option.detail) : null,
+            ),
+          ),
+        );
+      }
+
+      function Meter({ label, value, tone, detail }) {
+        return h(
+          "div",
+          { className: "meter" },
+          h(
+            "div",
+            { className: "meter-head" },
+            h("span", null, label),
+            h("strong", null, `${value}%`),
+          ),
+          h("div", { className: "meter-track" }, h("span", { className: "meter-fill", style: { width: `${value}%` } })),
+          h("small", null, detail),
+        );
+      }
+
+      function ModeSelector({ mode, setMode }) {
+        const items = Object.entries(MODE_CONFIG).map(([key, config]) => ({
+          key,
+          label: config.label,
+          detail: config.detail,
+        }));
+
+        return h(
+          "div",
+          { className: "mode-switcher", role: "tablist", "aria-label": "Mode selector" },
+          items.map((item) =>
+            h(
+              "button",
+              {
+                key: item.key,
+                type: "button",
+                className: cx("mode-pill", mode === item.key && "is-active"),
+                onClick: () => setMode(item.key),
+                "aria-pressed": mode === item.key,
+              },
+              h("strong", null, item.label),
+              h("small", null, item.detail),
+            ),
+          ),
+        );
+      }
+
+      function StatGrid({ mode, sourceLabel, activeCount, countWord, parity, solved, bandLabel }) {
+        const displayCount = truncateLabel(formatBigInt(activeCount), 20);
+        const displayCountWord = truncateLabel(countWord, 24);
+        return h(
+          "div",
+          { className: "stats", "aria-label": "System highlights" },
+          h(
+            "article",
+            { className: "stat" },
+            h("span", null, "Mode"),
+            h("strong", null, MODE_CONFIG[mode].label),
+            h("small", null, MODE_CONFIG[mode].detail),
+          ),
+          h(
+            "article",
+            { className: "stat" },
+            h("span", null, "Source"),
+            h("strong", null, sourceLabel),
+            h("small", null, "Render-bound, engine-bound, symbolic override, or boundary-limited."),
+          ),
+          h(
+            "article",
+            { className: "stat" },
+            h("span", null, "Effective count"),
+            h("strong", { title: `${formatBigInt(activeCount)} chars` }, `${displayCount} chars`),
+            h("small", { title: countWord }, displayCountWord),
+          ),
+          h(
+            "article",
+            { className: "stat" },
+            h("span", null, "Parity / solve"),
+            h("strong", null, `${parity.toUpperCase()} · ${solved ? "Solved" : "Open"}`),
+            h("small", null, bandLabel),
+          ),
+        );
+      }
+
+      function TextEditorPanel({ mode, text, setText, cap, activeCount, countWord, parity, forbiddenHit, countWordHit, solved, labEnabled }) {
+        return h(
+          "div",
+          { className: "card control-card" },
+          h(
+            "div",
+            { className: "section-head" },
+            h("p", { className: "eyebrow" }, "Render-bound input"),
+            h("h2", null, `${MODE_CONFIG[mode].label} textarea`),
+            h(
+              "p",
+              null,
+              "Safe and unsafe modes keep the live textarea as the source of truth. Caps stay fixed so we can still test render pressure directly.",
+            ),
+          ),
+          h(
+            "div",
+            { className: "field-grid" },
+            h(
+              "div",
+              { className: "field" },
+              h(
+                "div",
+                { className: "field-head" },
+                h("span", { className: "field-label" }, "Live text"),
+                h("span", { className: "field-hint" }, `${formatBigInt(BigInt(text.length))} / ${formatBigInt(cap)} chars`),
+              ),
+              h("textarea", {
+                className: "textarea",
+                value: text,
+                maxLength: Number(cap),
+                onChange: (event) => setText(event.target.value),
+                spellCheck: false,
+                autoCapitalize: "off",
+                autoCorrect: "off",
+                placeholder: "Type a live body here for render-bound modes.",
+              }),
+            ),
+            h(
+              "div",
+              { className: "chip-row" },
+              h(Badge, { tone: "info" }, `Count word: ${countWord}`),
+              h(Badge, { tone: forbiddenHit ? "bad" : "good" }, `Forbidden ${FORBIDDEN_LETTER}: ${forbiddenHit ? "present" : "clear"}`),
+              h(Badge, { tone: parity === "even" ? "good" : "warn" }, `Parity: ${parity}`),
+              h(Badge, { tone: solved ? "good" : "warn" }, solved ? "Solved" : "Not solved"),
+              labEnabled ? h(Badge, { tone: "warn" }, "Lab override active") : null,
+            ),
+            h(
+              "div",
+              { className: "status-grid" },
+              h(
+                "article",
+                { className: "status-card" },
+                h("span", null, "Effective count"),
+                h("strong", null, `${formatBigInt(activeCount)} chars`),
+                h("small", null, numberToWords(activeCount)),
+              ),
+              h(
+                "article",
+                { className: "status-card" },
+                h("span", null, "Count word"),
+                h("strong", null, countWord),
+                h("small", null, countWordHit ? "PASS: count word is present." : "FAIL: count word is absent."),
+              ),
+            ),
+          ),
+        );
+      }
+
+      function EnginePanel({
+        engineLengthRaw,
+        setEngineLengthRaw,
+        enginePrefix,
+        setEnginePrefix,
+        engineSeed,
+        setEngineSeed,
+        engineSuffix,
+        setEngineSuffix,
+        engineStrategy,
+        setEngineStrategy,
+        containsForbiddenOverride,
+        setContainsForbiddenOverride,
+        containsCountOverride,
+        setContainsCountOverride,
+        virtualCountWord,
+        activeCount,
+        parity,
+        solved,
+      }) {
+        const previewSurface = [enginePrefix, engineSeed, engineSuffix].filter(Boolean).join(" ").trim();
+        const previewText = previewSurface || " ";
+        const dominantScale = getDominantScaleDescriptor(activeCount);
+        const digitCount = activeCount.toString().length;
+        const displayDominantScale = truncateLabel(dominantScale.label, 28);
+        const compactLengthSummary = `${displayDominantScale} · ${digitCount} digits`;
+
+        return h(
+          "div",
+          { className: "card control-card" },
+          h(
+            "div",
+            { className: "section-head" },
+            h("p", { className: "eyebrow" }, "Symbolic engine"),
+            h("h2", null, "Engine Mode"),
+            h(
+              "p",
+              null,
+              "Engine mode does not store or render a giant textarea. It runs the parity logic from a structured engine-state model and only previews a small prefix and suffix.",
+            ),
+          ),
+          h(
+            "div",
+            { className: "field-grid" },
+            h(
+              "div",
+              { className: "field" },
+              h(
+                "div",
+                { className: "field-head" },
+                h("span", { className: "field-label" }, "Virtual length"),
+                h("span", { className: "field-hint", title: `${numberToWords(activeCount)} · ${formatBigInt(activeCount)} chars` }, compactLengthSummary),
+              ),
+              h("input", {
+                className: "input",
+                type: "text",
+                inputMode: "numeric",
+                value: engineLengthRaw,
+                onChange: (event) => setEngineLengthRaw(event.target.value.replace(/[^\d]/g, "")),
+                placeholder: "1000000",
+              }),
+              h(
+                "div",
+                { className: "quick-buttons" },
+                QUICK_LENGTHS.map((value) =>
+                  h(
+                    "button",
+                    {
+                      key: value.toString(),
+                      type: "button",
+                      className: "quick-button",
+                      onClick: () => setEngineLengthRaw(value.toString()),
+                    },
+                    formatBigInt(value),
+                  ),
+                ),
+              ),
+            ),
+            h(
+              "div",
+              { className: "status-grid" },
+              h(
+                "article",
+                { className: "status-card" },
+                h("span", null, "Strategy"),
+                h("strong", null, engineStrategy === "manual" ? "Manual overrides" : "Derived approximation"),
+                h(
+                  "small",
+                  null,
+                  engineStrategy === "manual"
+                    ? "Manual mode is deterministic. Auto states can still fall back to preview-derived values."
+                    : "Derived mode inspects only the preview surface and is explicitly approximate.",
+                ),
+              ),
+              h(
+                "article",
+                { className: "status-card" },
+                h("span", null, "Surface"),
+                h("strong", null, `${formatBigInt(BigInt(previewText.length))} chars`),
+                h("small", null, "Preview text is bounded and never becomes the primary storage path."),
+              ),
+              h(
+                "article",
+                { className: "status-card" },
+                h("span", null, "Dominant scale"),
+                h("strong", { title: dominantScale.label }, displayDominantScale),
+                h("small", null, `Scale source: ${dominantScale.sourceLabel}`),
+                h("small", null, `Boundary status: ${dominantScale.boundaryStatus}`),
+              ),
+            ),
+            h(
+              "div",
+              { className: "field-grid" },
+              h(
+                "div",
+                { className: "field" },
+                h("div", { className: "field-head" }, h("span", { className: "field-label" }, "Engine strategy"), h("span", { className: "field-hint" }, "Manual first, derived when you want approximation.")),
+                h(Segmented, {
+                  ariaLabel: "Engine strategy",
+                  value: engineStrategy,
+                  onChange: setEngineStrategy,
+                  options: [
+                    { value: "manual", label: "Manual", detail: "deterministic" },
+                    { value: "derived", label: "Derived", detail: "approximate" },
+                  ],
+                }),
+              ),
+              h(
+                "div",
+                { className: "field-grid" },
+                h(
+                  "div",
+                  { className: "field" },
+                  h("div", { className: "field-head" }, h("span", { className: "field-label" }, "Prefix preview"), h("span", { className: "field-hint" }, "Small visible prefix only.")),
+                  h("input", {
+                    className: "input",
+                    type: "text",
+                    value: enginePrefix,
+                    onChange: (event) => setEnginePrefix(event.target.value),
+                    maxLength: 80,
+                    placeholder: "prefix",
+                  }),
+                ),
+                h(
+                  "div",
+                  { className: "field" },
+                  h("div", { className: "field-head" }, h("span", { className: "field-label" }, "Seed text"), h("span", { className: "field-hint" }, "The engine can inspect this seed, not a giant body.")),
+                  h("input", {
+                    className: "input",
+                    type: "text",
+                    value: engineSeed,
+                    onChange: (event) => setEngineSeed(event.target.value),
+                    maxLength: 120,
+                    placeholder: "seed text",
+                  }),
+                ),
+                h(
+                  "div",
+                  { className: "field" },
+                  h("div", { className: "field-head" }, h("span", { className: "field-label" }, "Suffix preview"), h("span", { className: "field-hint" }, "Small visible suffix only.")),
+                  h("input", {
+                    className: "input",
+                    type: "text",
+                    value: engineSuffix,
+                    onChange: (event) => setEngineSuffix(event.target.value),
+                    maxLength: 80,
+                    placeholder: "suffix",
+                  }),
+                ),
+              ),
+            ),
+            h(
+              "div",
+              { className: "field-grid" },
+              h(
+                "div",
+                { className: "field" },
+                h("div", { className: "field-head" }, h("span", { className: "field-label" }, "Contains forbidden letter"), h("span", { className: "field-hint" }, `Manual override or preview-derived (${FORBIDDEN_LETTER}).`)),
+                h(Segmented, {
+                  ariaLabel: "Forbidden letter override",
+                  value: containsForbiddenOverride,
+                  onChange: setContainsForbiddenOverride,
+                  options: [
+                    { value: null, label: "Auto", detail: "preview" },
+                    { value: true, label: "Yes", detail: "force true" },
+                    { value: false, label: "No", detail: "force false" },
+                  ],
+                }),
+              ),
+              h(
+                "div",
+                { className: "field" },
+                h("div", { className: "field-head" }, h("span", { className: "field-label" }, "Contains count word"), h("span", { className: "field-hint" }, "Manual override or preview-derived count word.")),
+                h(Segmented, {
+                  ariaLabel: "Count word override",
+                  value: containsCountOverride,
+                  onChange: setContainsCountOverride,
+                  options: [
+                    { value: null, label: "Auto", detail: "preview" },
+                    { value: true, label: "Yes", detail: "force true" },
+                    { value: false, label: "No", detail: "force false" },
+                  ],
+                }),
+              ),
+            ),
+            h(
+              "div",
+              { className: "card formatter-card", style: { padding: "18px" } },
+              h(
+                "div",
+                { className: "field-head" },
+                h("span", { className: "field-label" }, "Rendered preview"),
+                h("span", { className: "field-hint" }, "Only a small surface is shown."),
+              ),
+              h(
+                "pre",
+                { className: "preview-window" },
+                `prefix: ${enginePrefix || "∅"}\nseed: ${engineSeed || "∅"}\nsuffix: ${engineSuffix || "∅"}\n\nsurface: ${previewText}\n\nlogical scale: ${displayDominantScale}\ndigits: ${digitCount}\ncount word: ${truncateLabel(virtualCountWord, 40)}\nparity: ${parity}\nsolved: ${solved ? "yes" : "no"}`,
+              ),
+            ),
+          ),
+        );
+      }
+
+      function PressurePanel({ mode, pressureSourceLabel, renderPressure, enginePressure, boundaryPressure }) {
+        const renderTone = renderPressure > 75 ? "warn" : "good";
+        const engineTone = enginePressure > 75 ? "warn" : "good";
+        const boundaryTone = boundaryPressure >= 100 ? "bad" : boundaryPressure >= 70 ? "warn" : "info";
+        return h(
+          "div",
+          { className: "card meter-card" },
+          h(
+            "div",
+            { className: "section-head" },
+            h("p", { className: "eyebrow" }, "Stress meter"),
+            h("h2", null, "Render, engine, and boundary pressure"),
+            h("p", null, "Safe and unsafe stay render-bound. Engine mode shifts pressure to the logical model. Boundary pressure shows how close the scale is to the verified ceiling."),
+          ),
+          h(
+            "div",
+            { className: "chip-row", style: { marginBottom: "14px" } },
+            h(Badge, { tone: "info" }, pressureSourceLabel),
+            h(Badge, { tone: renderTone }, renderPressure > 75 ? "High render pressure" : "Render pressure steady"),
+            h(Badge, { tone: engineTone }, enginePressure > 75 ? "High engine pressure" : "Engine pressure steady"),
+            h(Badge, { tone: boundaryTone }, boundaryPressure >= 100 ? "Boundary critical" : boundaryPressure >= 70 ? "Boundary elevated" : "Boundary steady"),
+          ),
+          h(
+            "div",
+            { className: "meter-grid" },
+            h(Meter, {
+              label: "Render pressure",
+              value: renderPressure,
+              detail: mode === "engine" ? "This reflects preview surface cost in symbolic mode." : "This reflects the visible surface: textarea plus live checks.",
+            }),
+            h(Meter, {
+              label: "Engine pressure",
+              value: enginePressure,
+              detail: mode === "engine" ? "This reflects logical scale, strategy, and preview analysis." : "Inactive in render-bound modes.",
+            }),
+            h(Meter, {
+              label: "Boundary pressure",
+              value: boundaryPressure,
+              detail:
+                boundaryPressure >= 100
+                  ? "Outside the verified real scale table."
+                  : boundaryPressure >= 70
+                    ? "At the highest supported real entry."
+                    : "Within the verified real table.",
+            }),
+          ),
+        );
+      }
+
+      function ScaleMilestones({ activeCount, onJump }) {
+        const activeBand = getScaleBand(activeCount);
+        const dominantScale = getDominantScaleDescriptor(activeCount);
+        const displayDominantScale = truncateLabel(dominantScale.label, 24);
+        return h(
+          "div",
+          { className: "card meter-card" },
+          h(
+            "div",
+            { className: "section-head" },
+            h("p", { className: "eyebrow" }, "Scale milestones"),
+            h("h2", null, "Count bands and boundary-aware naming"),
+            h("p", null, "Engine Mode shows verified real names first, labels helpers explicitly, and stops cleanly at the supported boundary."),
+          ),
+          h(
+            "div",
+            { className: "check-summary", style: { marginBottom: "14px" } },
+            h(Badge, { tone: dominantScale.type === "real" ? "good" : dominantScale.type === "generated" ? "warn" : "bad" }, `Dominant scale: ${displayDominantScale}`),
+            h(Badge, { tone: dominantScale.sourceLabel === "verified real table" ? "good" : dominantScale.sourceLabel === "generated helper" ? "warn" : "bad" }, `Scale source: ${dominantScale.sourceLabel}`),
+            h(Badge, { tone: dominantScale.boundaryStatus === "highest supported real entry" ? "warn" : dominantScale.boundaryStatus === "outside supported boundary" ? "bad" : "info" }, `Boundary status: ${dominantScale.boundaryStatus}`),
+          ),
+          h(
+            "div",
+            { className: "chip-row", style: { marginBottom: "14px" } },
+            SCALE_MILESTONES.map((band) =>
+              h(
+                "span",
+                { key: band.label, className: cx("chip", activeCount >= band.value && "is-active") },
+                band.label,
+              ),
+            ),
+          ),
+          h(
+            "div",
+            { className: "milestone-row" },
+            SCALE_MILESTONES.map((band) =>
+              h(
+                "button",
+                {
+                  key: band.label,
+                  type: "button",
+                  className: cx("milestone", activeBand.label === band.label && "is-active"),
+                  onClick: () => onJump(band.value),
+                },
+                h("span", null, band.label),
+                h("strong", null, formatBigInt(band.value)),
+              ),
+            ),
+          ),
+        );
+      }
+
+      function LabPanel({ labEnabled, setLabEnabled, labCountRaw, setLabCountRaw, labCount, labWords, labParity }) {
+        const displayLabWords = truncateLabel(labWords, 28);
+        return h(
+          "div",
+          { className: "card lab-card" },
+          h(
+            "div",
+            { className: "section-head" },
+            h("p", { className: "eyebrow" }, "Large-count lab"),
+            h("h2", null, "Direct count override"),
+            h("p", null, "This lab keeps count, parity, and word formatting independent from the textarea. It is the clean direct-count path."),
+          ),
+          h(
+            "div",
+            { className: "toolbar", style: { marginBottom: "14px" } },
+            h(
+              "button",
+              {
+                type: "button",
+                className: cx("segment", labEnabled && "is-active"),
+                onClick: () => setLabEnabled((value) => !value),
+                "aria-pressed": labEnabled,
+              },
+              labEnabled ? "Using lab count" : "Use lab count in main logic",
+            ),
+            h(Badge, { tone: labEnabled ? "warn" : "info" }, labEnabled ? "Lab symbolic" : "Lab idle"),
+          ),
+          h(
+            "div",
+            { className: "field-grid" },
+            h(
+              "div",
+              { className: "field" },
+              h("div", { className: "field-head" }, h("span", { className: "field-label" }, "Lab count"), h("span", { className: "field-hint" }, "Direct count override, no giant string required.")),
+              h("input", {
+                className: "input",
+                type: "text",
+                inputMode: "numeric",
+                value: labCountRaw,
+                onChange: (event) => setLabCountRaw(event.target.value.replace(/[^\d]/g, "")),
+                placeholder: "1000000",
+              }),
+            ),
+            h(
+              "div",
+              { className: "status-grid" },
+              h(
+                "article",
+                { className: "status-card" },
+                h("span", null, "Lab count word"),
+                h("strong", { title: labWords }, displayLabWords),
+                h("small", null, "Formatter-backed direct count override."),
+              ),
+              h(
+                "article",
+                { className: "status-card" },
+                h("span", null, "Lab parity"),
+                h("strong", null, labParity.toUpperCase()),
+                h("small", null, labEnabled ? "This value can drive the main logic path." : "This value is visible but not active."),
+              ),
+            ),
+          ),
+        );
+      }
+
+      function FormatterSanityCard() {
+        const checks = useMemo(
+          () =>
+            FORMATTER_SAMPLES.map((sample) => {
+              const actual = numberToWords(sample.value);
+              return {
+                ...sample,
+                actual,
+                pass: actual === sample.expected,
+              };
+            }),
+          [],
+        );
+        const passCount = checks.filter((check) => check.pass).length;
+        const overallPass = passCount === checks.length;
+
+        useEffect(() => {
+          checks.forEach((check) => {
+            console.assert(check.pass, `Formatter check failed for ${check.label}: ${check.actual}`);
+          });
+        }, [checks]);
+
+        return h(
+          "div",
+          { className: "card formatter-card" },
+          h(
+            "div",
+            { className: "section-head" },
+            h("p", { className: "eyebrow" }, "Formatter sanity checks"),
+            h("h2", null, "Large-scale number wording"),
+            h("p", null, "These checks stay lightweight and verify the formatter without adding a heavy test framework."),
+          ),
+          h(
+            "div",
+            { className: "check-summary" },
+            h(Badge, { tone: overallPass ? "good" : "bad" }, overallPass ? `All ${checks.length} checks pass` : `${passCount}/${checks.length} checks pass`),
+            h(Badge, { tone: "info" }, "numberToWords supports real and generated scales"),
+          ),
+          h(
+            "div",
+            { className: "check-list" },
+            checks.map((check) =>
+              h(
+                "div",
+                { key: check.label, className: "check-row" },
+                h(
+                  "div",
+                  null,
+                  h("strong", null, `${check.label} · ${formatBigInt(check.value)}`),
+                  h("small", null, check.actual),
+                ),
+                h(Badge, { tone: check.pass ? "good" : "bad" }, check.pass ? "PASS" : "FAIL"),
+              ),
+            ),
+          ),
+        );
+      }
+
+      function ArchitectureNote() {
+        return h(
+          "div",
+          { className: "note-card" },
+          h("div", { className: "section-head", style: { marginBottom: "12px" } }, h("p", { className: "eyebrow" }, "Architecture honesty"), h("h2", null, "Three layers, kept separate")),
+          h(
+            "p",
+            null,
+            "Safe and unsafe are render-bound. Engine mode is logic-bound and symbolic, with no giant live textarea. Large-count lab is a direct count override for formatter and logic checks.",
+          ),
+        );
+      }
+
+      function VisualCore({ mode, sourceLabel, activeCount, countWord, parity, solved, forbiddenHit, bandLabel }) {
+        const shortCountWord = truncateLabel(countWord, 22);
+        const sourceTone =
+          sourceLabel === "Engine-bound"
+            ? "warn"
+            : sourceLabel === "Boundary-limited"
+              ? "bad"
+              : sourceLabel === "Symbolic override"
+                ? "info"
+                : "good";
+        return h(
+          "div",
+          { className: "visual-card" },
+          h(
+            "div",
+            { className: "visual-caption" },
+            h("span", null, "Inspect the signal"),
+            h("strong", null, `${MODE_CONFIG[mode].label} core`),
+          ),
+          h(
+            "div",
+            { className: "core", "aria-hidden": "true" },
+            h("div", { className: "orb" }),
+            h("div", { className: "ring ring-one" }),
+            h("div", { className: "ring ring-two" }),
+            h("div", { className: "ring ring-three" }),
+            h("div", { className: "node", "data-tone": "memory", style: { "--x": "-118px", "--y": "-56px", "--z": "38px" } }, `Count ${truncateLabel(formatBigInt(activeCount), 16)}`),
+            h("div", { className: "node", "data-tone": "relay", style: { "--x": "104px", "--y": "-76px", "--z": "-10px" } }, `Word ${shortCountWord}`),
+            h("div", { className: "node", "data-tone": "shield", style: { "--x": "-146px", "--y": "28px", "--z": "-6px" } }, `Parity ${parity}`),
+            h("div", { className: "node", "data-tone": "gate", style: { "--x": "124px", "--y": "40px", "--z": "24px" } }, solved ? "Solved" : "Open"),
+            h("div", { className: "node", "data-tone": "scan", style: { "--x": "-34px", "--y": "-146px", "--z": "5px" } }, forbiddenHit ? `Forbidden ${FORBIDDEN_LETTER}` : "Forbidden clear"),
+            h("div", { className: "node", "data-tone": "archive", style: { "--x": "8px", "--y": "140px", "--z": "-12px" } }, bandLabel),
+            h("div", { className: "node", "data-tone": "orbit", style: { "--x": "150px", "--y": "116px", "--z": "-8px" } }, sourceLabel),
+            h("div", { className: "node", "data-tone": "seal", style: { "--x": "-136px", "--y": "110px", "--z": "18px" } }, `Mode ${MODE_CONFIG[mode].label}`),
+            h(
+              "div",
+              { className: "core-label" },
+              h("span", null, "Symbolic core"),
+              h("strong", null, `${formatBigInt(activeCount)} chars · ${shortCountWord}`),
+              h("small", null, `${sourceLabel} · ${solved ? "Solved path" : "Open path"} · forbidden ${FORBIDDEN_LETTER}: ${forbiddenHit ? "present" : "clear"}`),
+            ),
+          ),
+          h(
+            "div",
+            { className: "chip-row", style: { marginTop: "14px", justifyContent: "center" } },
+            h(Badge, { tone: sourceTone }, sourceLabel),
+            h(Badge, { tone: parity === "even" ? "good" : "warn" }, `Parity ${parity}`),
+            h(Badge, { tone: solved ? "good" : "warn" }, solved ? "Solved" : "Not solved"),
+          ),
+        );
+      }
+
+      function App() {
+        const [mode, setMode] = useState("safe");
+        const [text, setText] = useState("Parity Pendulum keeps render and logic separate.");
+        const [engineLengthRaw, setEngineLengthRaw] = useState("1000000");
+        const [enginePrefix, setEnginePrefix] = useState("symbolic");
+        const [engineSeed, setEngineSeed] = useState("parity pendulum");
+        const [engineSuffix, setEngineSuffix] = useState("preview");
+        const [engineStrategy, setEngineStrategy] = useState("manual");
+        const [containsForbiddenOverride, setContainsForbiddenOverride] = useState(null);
+        const [containsCountOverride, setContainsCountOverride] = useState(null);
+        const [labEnabled, setLabEnabled] = useState(false);
+        const [labCountRaw, setLabCountRaw] = useState("1000000");
+
+        const modeConfig = MODE_CONFIG[mode];
+
+        useEffect(() => {
+          document.title = `Parity Pendulum | ${modeConfig.label}`;
+        }, [modeConfig.label]);
+
+        useEffect(() => {
+          window.__PARITY_PENDULUM_SET_MODE__ = setMode;
+          return () => {
+            if (window.__PARITY_PENDULUM_SET_MODE__ === setMode) {
+              window.__PARITY_PENDULUM_SET_MODE__ = null;
+            }
+          };
+        }, []);
+
+        const engineLength = useMemo(() => clampBigInt(parseBigIntInput(engineLengthRaw, 0n), 0n, ENGINE_HARD_STOP), [engineLengthRaw]);
+        const labCount = useMemo(() => clampBigInt(parseBigIntInput(labCountRaw, 0n), 0n, SCALE_MAX), [labCountRaw]);
+
+        const activeCount = labEnabled ? labCount : mode === "engine" ? engineLength : BigInt(text.length);
+        const countWord = numberToWords(activeCount);
+        const parity = activeCount % 2n === 0n ? "even" : "odd";
+        const activeBand = getScaleBand(activeCount);
+        const dominantScale = getDominantScaleDescriptor(activeCount);
+        const pressureSourceLabel = getPressureSourceLabel(mode, labEnabled, dominantScale);
+
+        const enginePreviewSurface = [enginePrefix, engineSeed, engineSuffix].filter(Boolean).join(" ").trim();
+        const derivedForbidden = containsLetter(enginePreviewSurface, FORBIDDEN_LETTER);
+        const derivedCountWord = containsWord(enginePreviewSurface, countWord);
+        const forbiddenHit =
+          mode === "engine"
+            ? engineStrategy === "derived"
+              ? derivedForbidden
+              : resolveTriState(containsForbiddenOverride, derivedForbidden)
+            : containsLetter(text, FORBIDDEN_LETTER);
+        const countWordHit =
+          mode === "engine"
+            ? engineStrategy === "derived"
+              ? derivedCountWord
+              : resolveTriState(containsCountOverride, derivedCountWord)
+            : containsWord(text, countWord);
+        const solved = parity === "even" && !forbiddenHit && countWordHit;
+
+        const renderSurfaceLength =
+          mode === "engine"
+            ? enginePreviewSurface.length + engineLengthRaw.length + dominantScale.label.length
+            : text.length;
+        const renderPressure = pressureFromLength(
+          renderSurfaceLength,
+          mode === "engine" ? 260 : Number(modeConfig.cap),
+          {
+            textareaMounted: mode !== "engine",
+            fullScanActive: mode !== "engine" || labEnabled,
+          },
+        );
+        const enginePressure =
+          mode === "engine"
+            ? pressureFromEngineState(dominantScale, enginePreviewSurface.length, engineStrategy, engineStrategy === "derived" && (derivedForbidden || derivedCountWord))
+            : 0;
+        const boundaryPressure = pressureFromBoundary(dominantScale);
+
+        const previewWords = numberToWords(clampBigInt(mode === "engine" ? engineLength : labCount, 0n, mode === "engine" ? ENGINE_HARD_STOP : SCALE_MAX));
+
+        const formatterMemo = useMemo(
+          () =>
+            FORMATTER_SAMPLES.map((sample) => {
+              const actual = numberToWords(sample.value);
+              return {
+                ...sample,
+                actual,
+                pass: actual === sample.expected,
+              };
+            }),
+          [],
+        );
+
+        useEffect(() => {
+          formatterMemo.forEach((check) => {
+            console.assert(check.pass, `Formatter check failed for ${check.label}: ${check.actual}`);
+          });
+        }, [formatterMemo]);
+
+          return h(
+            "main",
+            { className: "app-shell" },
+          h(
+            "section",
+            { className: "hero", "aria-labelledby": "pendulum-hero-title" },
+            h(
+              "div",
+              { className: "hero-copy" },
+              h("p", { className: "eyebrow" }, "Parity Pendulum"),
+              h("h1", { id: "pendulum-hero-title" }, "Separate render scaling from logic scaling"),
+              h(
+                "p",
+                { className: "lead" },
+                "Safe and unsafe still use the textarea path. Engine mode moves the big number into an engine-state model so we can test logical scale without a giant live surface becoming the bottleneck.",
+              ),
+              h(ModeSelector, { mode, setMode }),
+              h(StatGrid, {
+                mode,
+                sourceLabel: pressureSourceLabel,
+                activeCount,
+                countWord,
+                parity,
+                solved,
+                bandLabel: `Band: ${activeBand.label}`,
+              }),
+            ),
+            h(
+              "div",
+              { className: "visual-wrap" },
+              h(VisualCore, {
+                mode,
+                sourceLabel: pressureSourceLabel,
+                activeCount,
+                countWord,
+                parity,
+                solved,
+                forbiddenHit,
+                bandLabel: activeBand.label,
+              }),
+            ),
+          ),
+          h(
+            "section",
+            { className: "section", id: "workspace", "aria-labelledby": "pendulum-workspace-title" },
+            h(
+              "div",
+              { className: "section-head" },
+              h("p", { className: "eyebrow" }, "Workspace"),
+              h("h2", { id: "pendulum-workspace-title" }, "Mode-aware surface with a real engine path"),
+              h(
+                "p",
+                null,
+                "The editor stays render-bound in safe and unsafe. Engine mode switches to symbolic length, preview-only text, and manual or derived constraint signals.",
+              ),
+            ),
+            h(
+              "div",
+              { className: "workspace-grid" },
+              h(
+                "div",
+                { className: "workspace-stack" },
+                mode === "engine"
+                  ? h(EnginePanel, {
+                      engineLengthRaw,
+                      setEngineLengthRaw,
+                      enginePrefix,
+                      setEnginePrefix,
+                      engineSeed,
+                      setEngineSeed,
+                      engineSuffix,
+                      setEngineSuffix,
+                      engineStrategy,
+                      setEngineStrategy,
+                      containsForbiddenOverride,
+                      setContainsForbiddenOverride,
+                      containsCountOverride,
+                      setContainsCountOverride,
+                      virtualCountWord: previewWords,
+                      activeCount: engineLength,
+                      parity,
+                      solved,
+                    })
+                  : h(TextEditorPanel, {
+                      mode,
+                      text,
+                      setText,
+                      cap: modeConfig.cap,
+                      activeCount,
+                      countWord,
+                      parity,
+                      forbiddenHit,
+                      countWordHit,
+                      solved,
+                      labEnabled,
+                    }),
+              ),
+              h(
+                "div",
+                { className: "workspace-stack" },
+                h(PressurePanel, {
+                  mode,
+                  pressureSourceLabel,
+                  renderPressure,
+                  enginePressure,
+                  boundaryPressure,
+                }),
+                mode === "engine"
+                  ? h(ScaleMilestones, {
+                      activeCount: engineLength,
+                    onJump: (value) => setEngineLengthRaw(value.toString()),
+                  })
+                  : null,
+                h(
+                  "div",
+                  { className: "card meter-card" },
+                  h(
+                    "div",
+                    { className: "section-head" },
+                    h("p", { className: "eyebrow" }, "Logic readout"),
+                    h("h2", null, "Parity, forbidden letter, count word"),
+                    h("p", null, "These status cards stay the same across modes. Only the source path changes."),
+                  ),
+                  h(
+                    "div",
+                    { className: "status-grid" },
+                    h(
+                      "article",
+                      { className: "status-card" },
+                      h("span", null, "Parity"),
+                      h("strong", null, parity.toUpperCase()),
+                      h("small", null, "Even counts read as solved-friendly in this setup."),
+                    ),
+                    h(
+                      "article",
+                      { className: "status-card" },
+                      h("span", null, "Forbidden letter"),
+                      h("strong", null, forbiddenHit ? `Present: ${FORBIDDEN_LETTER}` : `Clear: ${FORBIDDEN_LETTER}`),
+                      h("small", null, "Safe and unsafe inspect the live textarea. Engine uses overrides or preview-derived signals."),
+                    ),
+                    h(
+                      "article",
+                      { className: "status-card" },
+                      h("span", null, "Count word"),
+                      h("strong", null, countWordHit ? "Present" : "Absent"),
+                      h("small", null, countWord),
+                    ),
+                    h(
+                      "article",
+                      { className: "status-card" },
+                      h("span", null, "Solved"),
+                      h("strong", null, solved ? "PASS" : "FAIL"),
+                      h("small", null, "Solved means even parity, no forbidden letter, and the count word present."),
+                    ),
+                  ),
+                ),
+                h(ArchitectureNote),
+              ),
+            ),
+          ),
+          h(
+            "section",
+            { className: "section", id: "lab", "aria-labelledby": "pendulum-lab-title" },
+            h(
+              "div",
+              { className: "section-head" },
+              h("p", { className: "eyebrow" }, "Large-count lab"),
+              h("h2", { id: "pendulum-lab-title" }, "Direct count override for formatter and logic checks"),
+              h(
+                "p",
+                null,
+                "This lab exists to keep a separate direct-count path available. It can stay idle, or it can drive the main count without inflating the textarea.",
+              ),
+            ),
+            h(LabPanel, {
+              labEnabled,
+              setLabEnabled,
+              labCountRaw,
+              setLabCountRaw,
+              labCount,
+              labWords: numberToWords(labCount),
+              labParity: labCount % 2n === 0n ? "even" : "odd",
+            }),
+          ),
+          h(
+            "section",
+            { className: "section", id: "formatter", "aria-labelledby": "pendulum-formatter-title" },
+            h(
+              "div",
+              { className: "section-head" },
+              h("p", { className: "eyebrow" }, "Formatter"),
+              h("h2", { id: "pendulum-formatter-title" }, "Large-scale checks stay visible"),
+              h(
+                "p",
+                null,
+                "The app keeps a lightweight internal sanity row so the large-scale formatter path stays explicit after the engine refactor.",
+              ),
+            ),
+            h(
+              "div",
+              { className: "card formatter-card" },
+              h(
+                "div",
+                { className: "check-summary" },
+                h(Badge, { tone: formatterMemo.every((check) => check.pass) ? "good" : "bad" }, formatterMemo.every((check) => check.pass) ? `All ${formatterMemo.length} formatter checks pass` : "Formatter checks failed"),
+                h(Badge, { tone: "info" }, "numberToWords supports real and generated scales"),
+              ),
+              h(
+                "div",
+                { className: "check-list" },
+                formatterMemo.map((check) =>
+                  h(
+                    "div",
+                    { key: check.label, className: "check-row" },
+                    h(
+                      "div",
+                      null,
+                      h("strong", null, `${check.label} · ${formatBigInt(check.value)}`),
+                      h("small", null, check.actual),
+                    ),
+                    h(Badge, { tone: check.pass ? "good" : "bad" }, check.pass ? "PASS" : "FAIL"),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          h(
+            "footer",
+            { className: "footer" },
+            h("span", null, "Coupyn Labs."),
+            h("span", null, "Parity Pendulum"),
+            h("span", null, "Safe, unsafe, engine, and lab symbolic"),
+          ),
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById("root")).render(h(App));
+    })();
+  </script>
   <main>
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
@@ -776,6 +2780,7 @@
         <div class="hero-actions">
           <a class="button button-primary" href="#destination">Snapshot your memories</a>
           <a class="button button-secondary" href="#how">See how it works</a>
+          <a class="button button-secondary pendulum-button" href="#pendulum-core">Activate Pendulum</a>
           <div class="price-tag" aria-label="Snapshot price">
             <strong>Z&#x20A0; 1,000,000</strong>
             <small>&asymp; US$1,000,000</small>
@@ -813,7 +2818,7 @@
             <strong>Inspect the signal</strong>
           </div>
 
-          <div class="core" aria-hidden="true">
+          <div class="core pendulum-core" id="pendulum-core" aria-hidden="true">
             <div class="orb"></div>
             <div class="ring ring-one"></div>
             <div class="ring ring-two"></div>
@@ -963,11 +2968,356 @@
       </div>
     </section>
 
+    <section class="section" id="scale-naming" aria-labelledby="scale-naming-title">
+      <div class="section-head">
+        <p class="eyebrow">Scale naming</p>
+        <h2 id="scale-naming-title">Verified real names first, helper labels after, hard stop at the supported boundary</h2>
+        <p>
+          Type a number with as many digits as you want. The page resolves the dominant scale name,
+          tells you whether it comes from the verified real table or a helper label, and falls back
+          cleanly once the supported boundary is exceeded.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <span>Input</span>
+          <h3>Digits or count</h3>
+          <p>Use a plain number. The page reads the digit count and resolves the dominant scale tier.</p>
+          <div class="scan" style="margin-top: 16px;">
+            <label class="field-label" for="scale-input" style="display:block; margin-bottom: 10px;">Scale input</label>
+            <input class="input" id="scale-input" type="text" inputmode="numeric" value="1000000000000000000" spellcheck="false" autocomplete="off" />
+            <div class="quick-buttons" style="margin-top: 12px;">
+              <button class="quick-button" type="button" data-scale-preset="1000">1,000</button>
+              <button class="quick-button" type="button" data-scale-preset="1000000">1,000,000</button>
+              <button class="quick-button" type="button" data-scale-preset="1000000000000000000">1 quintillion</button>
+              <button class="quick-button" type="button" data-scale-preset="__limit__">force limit</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <span>Result</span>
+          <h3>Dominant scale</h3>
+          <p>Visible output updates as you type. The source type stays explicit.</p>
+          <div class="status-card" style="margin-top: 16px;">
+            <span>Dominant Scale</span>
+            <strong id="scale-result-name">quintillion</strong>
+            <small id="scale-result-detail">Example output</small>
+          </div>
+          <div class="status-card" style="margin-top: 12px;">
+            <span>Source Type</span>
+            <strong id="scale-result-source">verified real table</strong>
+            <small id="scale-result-source-detail">Verified real table</small>
+          </div>
+        </article>
+
+        <article class="card">
+          <span>Sanity</span>
+          <h3>Formatter checks</h3>
+          <p>Lightweight in-page checks keep the naming path honest.</p>
+          <div class="check-list" id="scale-sanity-list" style="margin-top: 16px;"></div>
+        </article>
+      </div>
+    </section>
+
     <footer class="footer">
       <span>Coupyn Labs.</span>
       <span>ZeroGlare Continuity Systems</span>
       <span>Static conceptual landing page</span>
     </footer>
   </main>
+  <script>
+    (() => {
+      const button = document.querySelector(".pendulum-button");
+      const core = document.querySelector(".pendulum-core");
+      if (!button || !core) {
+        return;
+      }
+
+      let resetTimer = null;
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        const root = document.getElementById("root");
+        if (root) {
+          root.classList.add("is-visible");
+        }
+        document.body.classList.add("engine-mode");
+        if (typeof window.__PARITY_PENDULUM_SET_MODE__ === "function") {
+          window.__PARITY_PENDULUM_SET_MODE__("engine");
+        }
+        button.classList.add("is-active");
+        core.classList.add("is-pulsing");
+        window.requestAnimationFrame(() => {
+          const workspace = document.getElementById("workspace");
+          if (workspace) {
+            workspace.scrollIntoView({ behavior: "smooth", block: "start" });
+          } else if (root) {
+            root.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+
+        if (resetTimer) {
+          window.clearTimeout(resetTimer);
+        }
+
+        resetTimer = window.setTimeout(() => {
+          button.classList.remove("is-active");
+          core.classList.remove("is-pulsing");
+        }, 900);
+      });
+    })();
+  </script>
+  <script>
+    (() => {
+      const REAL_SCALE_NAMES = new Map([
+        [1, "thousand"],
+        [2, "million"],
+        [3, "billion"],
+        [4, "trillion"],
+        [5, "quadrillion"],
+        [6, "quintillion"],
+        [7, "sextillion"],
+        [8, "septillion"],
+        [9, "octillion"],
+        [10, "nonillion"],
+        [11, "decillion"],
+        [12, "undecillion"],
+        [13, "duodecillion"],
+        [14, "tredecillion"],
+        [15, "quattuordecillion"],
+        [16, "quindecillion"],
+        [17, "sexdecillion"],
+        [18, "septendecillion"],
+        [19, "octodecillion"],
+        [20, "novemdecillion"],
+        [21, "vigintillion"],
+        [100, "centillion"],
+      ]);
+
+      const UNIT_PREFIXES = {
+        0: "",
+        1: "un",
+        2: "duo",
+        3: "tre",
+        4: "quattuor",
+        5: "quinqua",
+        6: "sex",
+        7: "septen",
+        8: "octo",
+        9: "novem",
+      };
+
+      const TENS_PREFIXES = {
+        0: "",
+        1: "deci",
+        2: "vigint",
+        3: "trigint",
+        4: "quadragint",
+        5: "quinquagint",
+        6: "sexagint",
+        7: "septuagint",
+        8: "octogint",
+        9: "nonagint",
+      };
+
+      const HUNDREDS_PREFIXES = {
+        0: "",
+        1: "cent",
+        2: "ducent",
+        3: "trecent",
+        4: "quadringent",
+        5: "quingent",
+        6: "sescent",
+        7: "septingent",
+        8: "octingent",
+        9: "nongent",
+      };
+
+      const SCALE_NAME_BUDGET_MS = 60;
+      const SANITY_SAMPLES = [
+        { label: "quintillion", index: 6, expected: "quintillion", source: "real" },
+        { label: "vigintillion", index: 21, expected: "vigintillion", source: "real" },
+        { label: "centillion", index: 100, expected: "centillion", source: "real" },
+        { label: "millinillion", index: 1001, expected: "millinillion", source: "real" },
+        { label: "limit", index: 1002, expected: "greater than millinillion", source: "generated-limit", budgetMs: 0 },
+      ];
+
+      function getScaleIndexFromDigitCount(digits) {
+        if (!Number.isFinite(digits) || digits <= 3) {
+          return 0;
+        }
+        return Math.floor((digits - 1) / 3);
+      }
+
+      function getRealScaleName(index) {
+        return REAL_SCALE_NAMES.get(index) || "";
+      }
+
+      function buildGeneratedIllionName(index) {
+        const offset = index > 100 ? index : Math.max(0, index - 1);
+        const units = offset % 10;
+        const tens = Math.floor(offset / 10) % 10;
+        const hundreds = Math.floor(offset / 100) % 10;
+        const parts = [
+          UNIT_PREFIXES[units] || "",
+          TENS_PREFIXES[tens] || "",
+          HUNDREDS_PREFIXES[hundreds] || "",
+        ].filter(Boolean);
+
+        if (parts.length === 0) {
+          return "thousand";
+        }
+
+        return `${parts.join("")}illion`;
+      }
+
+      function getScaleNameWithBudget(index, budgetMs) {
+        const start = performance.now();
+        let lastResolvedName = VERIFIED_REAL_SCALE_CEILING_LABEL;
+
+        const real = getRealScaleName(index);
+        if (real) {
+          return {
+            label: real,
+            source: "real",
+            sourceLabel: "verified real table",
+            boundaryStatus: index === VERIFIED_REAL_SCALE_CEILING_INDEX ? "highest supported real entry" : "within supported range",
+          };
+        }
+
+        if (index > VERIFIED_REAL_SCALE_CEILING_INDEX) {
+          return {
+            label: `greater than ${VERIFIED_REAL_SCALE_CEILING_LABEL}`,
+            source: "generated-limit",
+            sourceLabel: "unresolved beyond verified real scale table",
+            boundaryStatus: "outside supported boundary",
+          };
+        }
+
+        for (let i = 22; i <= index; i += 1) {
+          if (budgetMs <= 0 || performance.now() - start > budgetMs) {
+            return {
+              label: `greater than ${lastResolvedName}`,
+              source: "generated-limit",
+              sourceLabel: "unresolved beyond verified real scale table",
+              boundaryStatus: "outside supported boundary",
+            };
+          }
+
+          lastResolvedName = buildGeneratedIllionName(i);
+        }
+
+        return {
+          label: lastResolvedName,
+          source: "generated",
+          sourceLabel: "generated helper",
+          boundaryStatus: "within supported range",
+        };
+      }
+
+      function resolveScaleDescriptorFromValue(rawValue, budgetMs) {
+        const text = String(rawValue).trim();
+        const digitsOnly = text.replace(/[^\d]/g, "");
+        if (!digitsOnly) {
+          return { label: "sub-thousand", source: "real", sourceLabel: "verified real table", boundaryStatus: "within supported range", digitCount: 0 };
+        }
+
+        const digitCount = digitsOnly.length;
+        const scaleIndex = getScaleIndexFromDigitCount(digitCount);
+        const nameInfo = getScaleNameWithBudget(scaleIndex, budgetMs);
+        return {
+          label: nameInfo.label,
+          source: nameInfo.source,
+          sourceLabel: nameInfo.sourceLabel,
+          boundaryStatus: nameInfo.boundaryStatus,
+          digitCount,
+          scaleIndex,
+        };
+      }
+
+      function renderSanityRow(sample, container) {
+        const item = document.createElement("div");
+        item.className = "check-row";
+
+        const left = document.createElement("div");
+        const title = document.createElement("strong");
+        title.textContent = sample.label;
+        const detail = document.createElement("small");
+        detail.textContent = `expected: ${sample.expected}`;
+
+        left.appendChild(title);
+        left.appendChild(detail);
+
+        const resolved = getScaleNameWithBudget(sample.index, sample.budgetMs ?? SCALE_NAME_BUDGET_MS);
+        const badge = document.createElement("span");
+        const pass = resolved.label === sample.expected && resolved.source === sample.source;
+        badge.className = "badge";
+        badge.dataset.tone = pass ? "good" : "bad";
+        badge.textContent = pass ? "PASS" : "FAIL";
+
+        item.appendChild(left);
+        item.appendChild(badge);
+        container.appendChild(item);
+      }
+
+      const input = document.getElementById("scale-input");
+      const resultName = document.getElementById("scale-result-name");
+      const resultDetail = document.getElementById("scale-result-detail");
+      const resultSource = document.getElementById("scale-result-source");
+      const resultSourceDetail = document.getElementById("scale-result-source-detail");
+      const sanityList = document.getElementById("scale-sanity-list");
+
+      let currentBudgetMs = SCALE_NAME_BUDGET_MS;
+
+      function updateScaleDisplay() {
+        const descriptor = resolveScaleDescriptorFromValue(input ? input.value : "", currentBudgetMs);
+        if (resultName) {
+          resultName.textContent = descriptor.label;
+        }
+        if (resultSource) {
+          resultSource.textContent = descriptor.source;
+        }
+        if (resultDetail) {
+          resultDetail.textContent = descriptor.scaleIndex != null ? `scale index ${descriptor.scaleIndex} · ${descriptor.boundaryStatus || "boundary unknown"}` : "Example output";
+        }
+        if (resultSourceDetail) {
+          resultSourceDetail.textContent =
+            descriptor.sourceLabel || (descriptor.source === "real" ? "verified real table" : descriptor.source === "generated" ? "generated helper" : "unresolved beyond verified real scale table");
+        }
+      }
+
+      if (sanityList) {
+        sanityList.innerHTML = "";
+        SANITY_SAMPLES.forEach((sample) => renderSanityRow(sample, sanityList));
+      }
+
+      if (input) {
+        input.addEventListener("input", updateScaleDisplay);
+      }
+
+      document.querySelectorAll("[data-scale-preset]").forEach((button) => {
+        button.addEventListener("click", () => {
+          if (!input) return;
+          const preset = button.getAttribute("data-scale-preset");
+          if (preset === "__limit__") {
+            currentBudgetMs = 0;
+            input.value = "999999999999999999999";
+          } else {
+            currentBudgetMs = SCALE_NAME_BUDGET_MS;
+            input.value = preset || "";
+          }
+          updateScaleDisplay();
+        });
+      });
+
+      updateScaleDisplay();
+
+      window.getScaleIndexFromDigitCount = getScaleIndexFromDigitCount;
+      window.getRealScaleName = getRealScaleName;
+      window.buildGeneratedIllionName = buildGeneratedIllionName;
+      window.getScaleNameWithBudget = getScaleNameWithBudget;
+    })();
+  </script>
 </body>
 </html>
