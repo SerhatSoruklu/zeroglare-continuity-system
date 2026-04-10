@@ -1,78 +1,35 @@
 # ZeroGlare Continuity System
 
-ZeroGlare is a conceptual landing page for Coupyn Labs and its continuity-system narrative. It is a static portfolio piece built to read like a serious product concept while staying simple enough for GitHub Pages.
+ZeroGlare is a browser-native static site for Coupyn Labs. The repository now has two runtime surfaces:
 
-## Overview
+- a static landing page in `index.html`
+- a hidden React overlay mounted into `#root` for the Parity Pendulum workspace
+- a separate `/galaxy/` page for the Milky Way Mapping Engine
 
-- Brand: Coupyn Labs
-- Product: ZeroGlare Continuity Systems
-- Format: single-page static site
+The landing page and the overlay share the same canonical scale and formatter contract through browser-safe ES modules under `src/`.
+
+## Runtime Shape
+
 - Hosting: GitHub Pages from the repository root
+- Entry point: `index.html`
+- Shared logic: `src/shared/*`
+- React overlay: `src/pendulum/*`
+- Landing-page DOM glue: `src/landing/*`
+- Galaxy map surface: `galaxy/index.html` with `src/galaxy/*`
 
-## Roadmap
+## What The App Does
 
-### Phase 1 — Signal Capture
+- the landing page explains the concept and exposes the activation button
+- the pendulum button reveals the React workspace and switches it into engine mode
+- the static scale section uses the same scale-naming implementation as the React side
+- formatter checks stay visible in the React overlay
+- the "Explore the Milky Way" button opens the `/galaxy/` map page
+- the `/galaxy/` page renders anchor stars first and can reveal a measured catalog layer
+- the `/galaxy/` page can also reveal a generated inferred layer that stays labeled as model output
+- the `/galaxy/` page includes source, distance, and magnitude filters plus a trust legend
 
-- Focus: identity markers, memory fragments, and response history
-- System adds: snapshot archive, trace indexing, initial memory map
-- Output: captured cognitive pattern data
-- Reality: structured records, not continuity
+## Notes
 
-### Phase 2 — Internal Model Reconstruction
-
-- Focus: coherent internal model of a person
-- System adds: adaptive response logic, history-aware memory graph
-- Output: coherent internal model of a person; adaptive responses based on history
-- Reality: high-fidelity reconstruction; still not proven continuity
-
-### Phase 3 — Continuity Emulation (10–20 years)
-
-- Focus: full life-log integration and highly consistent identity behavior
-- System adds: Continuity Layer for consistency enforcement
-- Output: systems that feel like the same person over time
-- Reality: strong continuity illusion; no verified identity persistence
-
-### Phase 4 — Unknown Boundary
-
-- Core question: Does copying a mind equal continuing it?
-- This phase moves beyond engineering into neuroscience, philosophy, and fundamental science
-- Reality: not solved
-
-## Definition
-
-ZeroGlare is:
-
-> A system for capturing, preserving, and reconstructing human cognitive patterns with increasing fidelity.
-
-It is not:
-
-- a consciousness transfer system
-- a guarantee of immortality
-- a solved problem
-
-## Why This Exists
-
-To explore:
-
-- identity as a system
-- memory as structure
-- continuity as a design problem
-
-And to push the boundary between:
-
-- simulated continuity
-- reconstructed identity
-- unresolved personhood
-
-## Tech
-
-- HTML
-- CSS
-- lightweight static page structure
-
-## View
-
-- Live site: https://serhatsoruklu.github.io/zeroglare-continuity-system/
-- Source repo: https://github.com/SerhatSoruklu/zeroglare-continuity-system
-
-Open `index.html` directly or use the GitHub Pages URL above.
+- No bundler or build step is required
+- The app runs directly from the repository root
+- The runtime is still intentionally static, but the logic is now modular instead of embedded in one blob

@@ -1,0 +1,222 @@
+[
+  {
+    "id": "alpha_centauri_a",
+    "name": "Alpha Centauri A",
+    "type": "catalog",
+    "source": "measured",
+    "ra": 219.9021,
+    "dec": -60.8339,
+    "distance_ly": 4.37,
+    "magnitude": 0.01,
+    "constellation": "Centaurus"
+  },
+  {
+    "id": "alpha_centauri_b",
+    "name": "Alpha Centauri B",
+    "type": "catalog",
+    "source": "measured",
+    "ra": 219.9021,
+    "dec": -60.8339,
+    "distance_ly": 4.37,
+    "magnitude": 1.33,
+    "constellation": "Centaurus"
+  },
+  {
+    "id": "proxima_centauri",
+    "name": "Proxima Centauri",
+    "type": "catalog",
+    "source": "measured",
+    "ra": 217.4292,
+    "dec": -62.6795,
+    "distance_ly": 4.24,
+    "magnitude": 11.13,
+    "constellation": "Centaurus"
+  },
+  {
+    "id": "barnards_star",
+    "name": "Barnard's Star",
+    "type": "catalog",
+    "source": "measured",
+    "ra": 269.4521,
+    "dec": 4.6934,
+    "distance_ly": 5.96,
+    "magnitude": 9.54,
+    "constellation": "Ophiuchus"
+  },
+  {
+    "id": "wolf_359",
+    "name": "Wolf 359",
+    "type": "catalog",
+    "source": "measured",
+    "ra": 247.0292,
+    "dec": 7.0147,
+    "distance_ly": 7.86,
+    "magnitude": 13.54,
+    "constellation": "Leo"
+  },
+  {
+    "id": "lalande_21185",
+    "name": "Lalande 21185",
+    "type": "catalog",
+    "source": "measured",
+    "ra": 165.8333,
+    "dec": 35.9723,
+    "distance_ly": 8.31,
+    "magnitude": 7.47,
+    "constellation": "Ursa Major"
+  },
+  {
+    "id": "luyten_726-8_a",
+    "name": "Luyten 726-8 A",
+    "type": "catalog",
+    "source": "measured",
+    "ra": 24.649,
+    "dec": -17.9559,
+    "distance_ly": 2.63,
+    "magnitude": 12.54,
+    "constellation": "Cetus"
+  },
+  {
+    "id": "luyten_726-8_b",
+    "name": "Luyten 726-8 B",
+    "type": "catalog",
+    "source": "measured",
+    "ra": 24.649,
+    "dec": -17.9559,
+    "distance_ly": 2.63,
+    "magnitude": 13.23,
+    "constellation": "Cetus"
+  },
+  {
+    "id": "ross_154",
+    "name": "Ross 154",
+    "type": "catalog",
+    "source": "measured",
+    "ra": 270.1613,
+    "dec": -23.8833,
+    "distance_ly": 9.69,
+    "magnitude": 10.44,
+    "constellation": "Sagittarius"
+  },
+  {
+    "id": "ross_248",
+    "name": "Ross 248",
+    "type": "catalog",
+    "source": "measured",
+    "ra": 23.37,
+    "dec": 44.03,
+    "distance_ly": 10.3,
+    "magnitude": 12.35,
+    "constellation": "Andromeda"
+  },
+  {
+    "id": "epsilon_eridani",
+    "name": "Epsilon Eridani",
+    "type": "catalog",
+    "source": "measured",
+    "ra": 53.2325,
+    "dec": -9.4583,
+    "distance_ly": 10.47,
+    "magnitude": 3.73,
+    "constellation": "Eridanus"
+  },
+  {
+    "id": "tau_ceti",
+    "name": "Tau Ceti",
+    "type": "catalog",
+    "source": "measured",
+    "ra": 26.0175,
+    "dec": -15.9375,
+    "distance_ly": 11.91,
+    "magnitude": 3.49,
+    "constellation": "Cetus"
+  },
+  {
+    "id": "fomalhaut",
+    "name": "Fomalhaut",
+    "type": "catalog",
+    "source": "measured",
+    "ra": 344.4128,
+    "dec": -29.6222,
+    "distance_ly": 25.13,
+    "magnitude": 1.16,
+    "constellation": "Piscis Austrinus"
+  },
+  {
+    "id": "canopus",
+    "name": "Canopus",
+    "type": "catalog",
+    "source": "measured",
+    "ra": 95.9879,
+    "dec": -52.6957,
+    "distance_ly": 310,
+    "magnitude": -0.74,
+    "constellation": "Carina"
+  },
+  {
+    "id": "deneb",
+    "name": "Deneb",
+    "type": "catalog",
+    "source": "measured",
+    "ra": 310.3579,
+    "dec": 45.2803,
+    "distance_ly": 2615,
+    "magnitude": 1.25,
+    "constellation": "Cygnus"
+  },
+  {
+    "id": "bellatrix",
+    "name": "Bellatrix",
+    "type": "catalog",
+    "source": "measured",
+    "ra": 81.2828,
+    "dec": 6.3497,
+    "distance_ly": 243,
+    "magnitude": 1.64,
+    "constellation": "Orion"
+  },
+  {
+    "id": "alnilam",
+    "name": "Alnilam",
+    "type": "catalog",
+    "source": "measured",
+    "ra": 84.0534,
+    "dec": -1.2019,
+    "distance_ly": 2000,
+    "magnitude": 1.69,
+    "constellation": "Orion"
+  },
+  {
+    "id": "mintaka",
+    "name": "Mintaka",
+    "type": "catalog",
+    "source": "measured",
+    "ra": 83.0017,
+    "dec": -0.2991,
+    "distance_ly": 1200,
+    "magnitude": 2.25,
+    "constellation": "Orion"
+  },
+  {
+    "id": "saiph",
+    "name": "Saiph",
+    "type": "catalog",
+    "source": "measured",
+    "ra": 86.9391,
+    "dec": -9.6696,
+    "distance_ly": 650,
+    "magnitude": 2.06,
+    "constellation": "Orion"
+  },
+  {
+    "id": "alhena",
+    "name": "Alhena",
+    "type": "catalog",
+    "source": "measured",
+    "ra": 99.4281,
+    "dec": 16.3992,
+    "distance_ly": 101,
+    "magnitude": 1.93,
+    "constellation": "Gemini"
+  }
+]

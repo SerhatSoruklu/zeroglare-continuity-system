@@ -1,0 +1,14 @@
+[
+  {
+    "id": "orion_arm",
+    "name": "Orion Arm",
+    "kind": "arm",
+    "source": "observed",
+    "confidence": "high",
+    "frame": "galactic",
+    "description": "Local spiral arm segment containing the Solar System and the Phase 1 anchor-star dataset.",
+    "order": 0,
+    "centerLyFromCore": 27000,
+    "spanLy": 10000
+  }
+]

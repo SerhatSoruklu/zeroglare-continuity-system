@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Milky Way Mapping Engine | Coupyn Labs</title>
+  <meta name="description" content="Truth-layered Milky Way map for observed anchor stars and constellations.">
+  <meta name="theme-color" content="#020617">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../src/galaxy/galaxy.css">
+</head>
+<body>
+  <main class="galaxy-page">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Milky Way Mapping Engine</p>
+        <h1>Observed. Cataloged. Inferred. Never mixed.</h1>
+        <p class="lead">
+          Phase 4 renders the Milky Way as a clean 2D projection. This page shows anchor stars
+          and constellation lines only, using the Phase 1 truth contract and Orion Arm scope.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-secondary" href="../index.html">Back home</a>
+          <span class="badge" data-tone="info">Phase 4 / 2D map</span>
+        </div>
+      </div>
+
+      <aside class="hero-panel">
+        <div class="panel-head">
+          <p class="eyebrow">Truth layers</p>
+          <h2>Observed first, then filtered layers</h2>
+          <p>
+            Anchor stars are the primary visible points. Constellations are connective geometry.
+            Catalog and generated layers can be surfaced through the truth filters, but they stay labeled.
+          </p>
+        </div>
+        <div class="trust-list">
+          <div class="trust-row">
+            <strong>Type</strong>
+            <span>anchor</span>
+          </div>
+          <div class="trust-row">
+            <strong>Source</strong>
+            <span>observed</span>
+          </div>
+          <div class="trust-row">
+            <strong>Region</strong>
+            <span>Orion Arm</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="workspace">
+      <aside class="panel layer-panel" aria-labelledby="layers-title">
+        <div class="panel-head">
+          <p class="eyebrow">Usefulness layer</p>
+          <h2 id="layers-title">Truth-layer filters</h2>
+          <p>Filter by source and range without mixing observed, measured, and inferred stars.</p>
+        </div>
+
+        <div class="filter-card">
+          <div class="panel-head compact">
+            <p class="eyebrow">Source filters</p>
+            <h3>Show / hide star sources</h3>
+          </div>
+
+          <div class="layer-list" aria-label="Source filters">
+            <button class="layer-chip layer-toggle is-active" id="anchor-toggle" type="button" aria-pressed="true">Anchor</button>
+            <button class="layer-chip layer-toggle is-muted" id="catalog-toggle" type="button" aria-pressed="false">Catalog</button>
+            <button class="layer-chip layer-toggle is-muted" id="generated-toggle" type="button" aria-pressed="false">Generated</button>
+          </div>
+
+          <div class="range-stack" aria-label="Range filters">
+            <label class="range-field" for="distance-range">
+              <div class="range-head">
+                <span>Distance range</span>
+                <strong id="distance-range-value">0 - 12,500 ly</strong>
+              </div>
+              <input id="distance-range" type="range" min="0" max="12500" step="50" value="12500">
+            </label>
+
+            <label class="range-field" for="magnitude-range">
+              <div class="range-head">
+                <span>Magnitude limit</span>
+                <strong id="magnitude-range-value">14.0 and brighter</strong>
+              </div>
+              <input id="magnitude-range" type="range" min="-2" max="14" step="0.1" value="14">
+            </label>
+          </div>
+
+          <p class="note-copy">Constellation lines stay on as the navigation layer.</p>
+        </div>
+
+        <div class="trust-legend">
+          <div class="panel-head compact">
+            <p class="eyebrow">Trust legend</p>
+            <h3>What each layer means</h3>
+          </div>
+          <div class="legend-list">
+            <div class="legend-row">
+              <strong>Anchor</strong>
+              <span>Observed reference stars with human-known positions.</span>
+            </div>
+            <div class="legend-row">
+              <strong>Catalog</strong>
+              <span>Measured stars from a bounded catalog subset.</span>
+            </div>
+            <div class="legend-row">
+              <strong>Generated</strong>
+              <span>Statistical fill derived from region rules and density.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="note-card">
+          <strong>Projection</strong>
+          <p>Right ascension and declination are projected into a stable 2D sky map.</p>
+          <p class="note-copy">Catalog stars render smaller and dimmer than anchors when enabled.</p>
+          <p class="note-copy">Generated stars appear as a faint statistical field and stay labeled as model output.</p>
+        </div>
+      </aside>
+
+      <section class="panel map-panel" aria-labelledby="map-title">
+        <div class="panel-head">
+          <p class="eyebrow">2D map</p>
+          <h2 id="map-title">Anchor stars and constellation lines</h2>
+          <p>Click any star point to inspect its Phase 1 record.</p>
+        </div>
+
+        <div class="map-frame">
+          <canvas id="galaxy-canvas" aria-label="Milky Way 2D map" role="img"></canvas>
+          <div class="map-label">Orion Arm truth surface</div>
+        </div>
+      </section>
+
+      <aside class="panel info-panel" id="galaxy-info-panel" aria-labelledby="info-title">
+        <div class="panel-head">
+          <p class="eyebrow">Info panel</p>
+          <h2 id="info-title">Selected star</h2>
+          <p id="galaxy-info-subtitle">Click a star to inspect its record.</p>
+        </div>
+
+        <div class="info-stack">
+          <div class="info-row">
+            <span>Name</span>
+            <strong id="galaxy-info-name">-</strong>
+          </div>
+          <div class="info-row">
+            <span>Type</span>
+            <strong id="galaxy-info-type">-</strong>
+          </div>
+          <div class="info-row">
+            <span>Source</span>
+            <strong id="galaxy-info-source">-</strong>
+          </div>
+          <div class="info-row">
+            <span>Confidence</span>
+            <strong id="galaxy-info-confidence">-</strong>
+          </div>
+          <div class="info-row">
+            <span>Region</span>
+            <strong id="galaxy-info-region">-</strong>
+          </div>
+          <div class="info-row">
+            <span>Constellation</span>
+            <strong id="galaxy-info-constellation">-</strong>
+          </div>
+          <div class="info-row">
+            <span>RA</span>
+            <strong id="galaxy-info-ra">-</strong>
+          </div>
+          <div class="info-row">
+            <span>Dec</span>
+            <strong id="galaxy-info-dec">-</strong>
+          </div>
+          <div class="info-row">
+            <span>Distance</span>
+            <strong id="galaxy-info-distance">-</strong>
+          </div>
+          <div class="info-row">
+            <span>Magnitude</span>
+            <strong id="galaxy-info-magnitude">-</strong>
+          </div>
+        </div>
+
+        <div class="info-explainer">
+          <div class="explain-card">
+            <strong>Source meaning</strong>
+            <p id="galaxy-info-source-meaning">Click a star to see why it exists in this layer.</p>
+          </div>
+          <div class="explain-card">
+            <strong>Confidence meaning</strong>
+            <p id="galaxy-info-confidence-meaning">Observed anchors and measured catalog stars are high confidence. Generated stars are statistical.</p>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script type="module" src="../src/galaxy/main.js"></script>
+</body>
+</html>

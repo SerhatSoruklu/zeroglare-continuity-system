@@ -1,0 +1,110 @@
+[
+  {
+    "id": "orion",
+    "name": "Orion",
+    "source": "observed",
+    "confidence": "high",
+    "order": 1,
+    "star_ids": ["betelgeuse", "rigel"],
+    "description": "Primary anchor constellation for the Phase 1 Orion Arm dataset."
+  },
+  {
+    "id": "canis_major",
+    "name": "Canis Major",
+    "source": "observed",
+    "confidence": "high",
+    "order": 2,
+    "star_ids": ["sirius"],
+    "description": "Home constellation for Sirius, the brightest anchor star in this starter set."
+  },
+  {
+    "id": "ursa_minor",
+    "name": "Ursa Minor",
+    "source": "observed",
+    "confidence": "high",
+    "order": 3,
+    "star_ids": ["polaris"],
+    "description": "Navigation anchor constellation for Polaris."
+  },
+  {
+    "id": "lyra",
+    "name": "Lyra",
+    "source": "observed",
+    "confidence": "high",
+    "order": 4,
+    "star_ids": ["vega"],
+    "description": "Bright northern anchor constellation for Vega."
+  },
+  {
+    "id": "canis_minor",
+    "name": "Canis Minor",
+    "source": "observed",
+    "confidence": "high",
+    "order": 5,
+    "star_ids": ["procyon"],
+    "description": "Small navigation constellation anchored by Procyon."
+  },
+  {
+    "id": "auriga",
+    "name": "Auriga",
+    "source": "observed",
+    "confidence": "high",
+    "order": 6,
+    "star_ids": ["capella"],
+    "description": "Bright northern constellation containing Capella."
+  },
+  {
+    "id": "bootes",
+    "name": "Bootes",
+    "source": "observed",
+    "confidence": "high",
+    "order": 7,
+    "star_ids": ["arcturus"],
+    "description": "Northern sky constellation anchored here by Arcturus."
+  },
+  {
+    "id": "aquila",
+    "name": "Aquila",
+    "source": "observed",
+    "confidence": "high",
+    "order": 8,
+    "star_ids": ["altair"],
+    "description": "Equatorial constellation anchored by Altair."
+  },
+  {
+    "id": "taurus",
+    "name": "Taurus",
+    "source": "observed",
+    "confidence": "high",
+    "order": 9,
+    "star_ids": ["aldebaran"],
+    "description": "Bright ecliptic constellation anchored by Aldebaran."
+  },
+  {
+    "id": "virgo",
+    "name": "Virgo",
+    "source": "observed",
+    "confidence": "high",
+    "order": 10,
+    "star_ids": ["spica"],
+    "description": "Major zodiac constellation anchored by Spica."
+  },
+  {
+    "id": "gemini",
+    "name": "Gemini",
+    "source": "observed",
+    "confidence": "high",
+    "order": 11,
+    "star_ids": ["pollux", "castor"],
+    "description": "Twin-star constellation represented by Pollux and Castor."
+  },
+  {
+    "id": "leo",
+    "name": "Leo",
+    "source": "observed",
+    "confidence": "high",
+    "order": 12,
+    "star_ids": ["regulus"],
+    "description": "Bright zodiac constellation anchored by Regulus."
+  }
+]

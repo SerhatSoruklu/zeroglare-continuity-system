@@ -172,6 +172,17 @@
       color: var(--text);
     }
 
+    .button-galaxy {
+      color: #03101b;
+      background: linear-gradient(135deg, #8a7dff 0%, #7ddcff 52%, #8fffe6 100%);
+      box-shadow: 0 16px 40px rgba(129, 91, 255, 0.22);
+      font-weight: 700;
+    }
+
+    .button-galaxy:hover {
+      box-shadow: 0 18px 44px rgba(129, 91, 255, 0.28);
+    }
+
     .button.pendulum-button.is-active {
       border-color: rgba(125, 220, 255, 0.4);
       box-shadow:
@@ -233,6 +244,13 @@
       margin-top: 0.6rem;
       font-size: 1.05rem;
       letter-spacing: -0.02em;
+    }
+
+    .stat strong.count-readout {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-variant-numeric: tabular-nums;
     }
 
     .stat small {
@@ -434,7 +452,7 @@
       position: absolute;
       inset: auto 50% 26px;
       transform: translateX(-50%);
-      width: min(86%, 280px);
+      width: min(90%, 340px);
       padding: 15px 18px;
       border-radius: 22px;
       border: 1px solid var(--border);
@@ -455,8 +473,11 @@
     .core-label strong {
       display: block;
       margin-top: 0.45rem;
-      font-size: 1.06rem;
+      font-size: clamp(0.92rem, 1.5vw, 1.06rem);
       letter-spacing: -0.02em;
+      line-height: 1.18;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
 
     .core-label small {
@@ -465,6 +486,7 @@
       color: var(--muted);
       font-size: 0.86rem;
       line-height: 1.5;
+      overflow-wrap: anywhere;
     }
 
     .section {
@@ -1283,13 +1305,330 @@
       gap: 12px;
     }
 
+    .frame-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .frame-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .frame-controls .button,
+    .frame-controls .quick-button {
+      min-height: 42px;
+    }
+
+    .frame-summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .frame-summary .status-card strong {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .frame-output {
+      display: grid;
+      gap: 10px;
+    }
+
+    .frame-output .textarea {
+      min-height: 220px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.9rem;
+    }
+
+    .frame-progress {
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+    }
+
+    .frame-progress span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 24px rgba(125, 220, 255, 0.22);
+      transition: width 180ms ease;
+    }
+
+    .signal-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .signal-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .signal-controls .button {
+      min-height: 42px;
+    }
+
+    .signal-summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .signal-output {
+      display: grid;
+      gap: 10px;
+    }
+
+    .signal-output .textarea {
+      min-height: 280px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.9rem;
+    }
+
+    .signal-progress {
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+    }
+
+    .signal-progress span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent-2), var(--accent-3));
+      box-shadow: 0 0 24px rgba(143, 255, 230, 0.18);
+      transition: width 180ms ease;
+    }
+
+    .stability-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .stability-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .stability-controls .button {
+      min-height: 42px;
+    }
+
+    .stability-summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .stability-output {
+      display: grid;
+      gap: 10px;
+    }
+
+    .stability-output .textarea {
+      min-height: 280px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.9rem;
+    }
+
+    .stability-progress {
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+    }
+
+    .stability-progress span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent), var(--accent-3));
+      box-shadow: 0 0 24px rgba(161, 140, 255, 0.2);
+      transition: width 180ms ease;
+    }
+
+    .measurement-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .measurement-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .measurement-controls .button {
+      min-height: 42px;
+    }
+
+    .measurement-summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .measurement-output {
+      display: grid;
+      gap: 10px;
+    }
+
+    .measurement-output .textarea {
+      min-height: 280px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.9rem;
+    }
+
+    .measurement-progress {
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+    }
+
+    .measurement-progress span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent-2), var(--accent));
+      box-shadow: 0 0 24px rgba(125, 220, 255, 0.18);
+      transition: width 180ms ease;
+    }
+
+    .inference-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .inference-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .inference-controls .button {
+      min-height: 42px;
+    }
+
+    .inference-summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .inference-output {
+      display: grid;
+      gap: 10px;
+    }
+
+    .inference-output .textarea {
+      min-height: 280px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.9rem;
+    }
+
+    .inference-progress {
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+    }
+
+    .inference-progress span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 24px rgba(125, 220, 255, 0.18);
+      transition: width 180ms ease;
+    }
+
+    .final-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .final-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .final-controls .button {
+      min-height: 42px;
+    }
+
+    .final-summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .final-output {
+      display: grid;
+      gap: 10px;
+    }
+
+    .final-output .textarea {
+      min-height: 300px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.9rem;
+    }
+
+    .final-progress {
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+    }
+
+    .final-progress span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent-2), var(--accent));
+      box-shadow: 0 0 24px rgba(125, 220, 255, 0.18);
+      transition: width 180ms ease;
+    }
+
     @media (max-width: 980px) {
       .workspace-grid {
         grid-template-columns: 1fr;
       }
 
       .status-grid,
-      .milestone-row {
+      .milestone-row,
+      .frame-summary,
+      .signal-summary,
+      .stability-summary,
+      .measurement-summary,
+      .inference-summary,
+      .final-summary {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
@@ -1297,7 +1636,13 @@
     @media (max-width: 720px) {
       .mode-switcher,
       .status-grid,
-      .milestone-row {
+      .milestone-row,
+      .frame-summary,
+      .signal-summary,
+      .stability-summary,
+      .measurement-summary,
+      .inference-summary,
+      .final-summary {
         grid-template-columns: 1fr;
       }
 
@@ -1313,1460 +1658,6 @@
   <div id="root"></div>
   <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-  <script>
-    (() => {
-      const { createElement: h, Fragment, useEffect, useMemo, useState } = React;
-
-      const MODE_CONFIG = {
-        safe: {
-          label: "Safe",
-          detail: "Textarea-bound and capped at 250,000 chars.",
-          cap: 250000n,
-          source: "Render-bound",
-        },
-        unsafe: {
-          label: "Unsafe",
-          detail: "Textarea-bound and capped at 5,000,000 chars.",
-          cap: 5000000n,
-          source: "Render-bound",
-        },
-        engine: {
-          label: "Engine",
-          detail: "Symbolic, logic-bound, and textarea-free for giant lengths.",
-          cap: 1000000000000000000n,
-          source: "Engine-bound",
-        },
-      };
-
-      const FORBIDDEN_LETTER = "x";
-      const SCALE_MAX = 1000000000000000000n;
-      const ENGINE_HARD_STOP = 10n ** 3003n;
-      const SCALE_NAME_BUDGET_MS = 60;
-      const QUICK_LENGTHS = [
-        1000n,
-        1000000n,
-        1000000000n,
-        1000000000000n,
-        1000000000000000n,
-        1000000000000000000n,
-      ];
-      const SCALE_MILESTONES = [
-        { label: "thousand", value: 1000n },
-        { label: "million", value: 1000000n },
-        { label: "billion", value: 1000000000n },
-        { label: "trillion", value: 1000000000000n },
-        { label: "quadrillion", value: 1000000000000000n },
-        { label: "quintillion", value: 1000000000000000000n },
-      ];
-
-      const SMALL_WORDS = [
-        "zero",
-        "one",
-        "two",
-        "three",
-        "four",
-        "five",
-        "six",
-        "seven",
-        "eight",
-        "nine",
-        "ten",
-        "eleven",
-        "twelve",
-        "thirteen",
-        "fourteen",
-        "fifteen",
-        "sixteen",
-        "seventeen",
-        "eighteen",
-        "nineteen",
-      ];
-      const TENS_WORDS = [
-        "",
-        "",
-        "twenty",
-        "thirty",
-        "forty",
-        "fifty",
-        "sixty",
-        "seventy",
-        "eighty",
-        "ninety",
-      ];
-      const REAL_SCALE_NAMES = new Map([
-        [1, "thousand"],
-        [2, "million"],
-        [3, "billion"],
-        [4, "trillion"],
-        [5, "quadrillion"],
-        [6, "quintillion"],
-        [7, "sextillion"],
-        [8, "septillion"],
-        [9, "octillion"],
-        [10, "nonillion"],
-        [11, "decillion"],
-        [12, "undecillion"],
-        [13, "duodecillion"],
-        [14, "tredecillion"],
-        [15, "quattuordecillion"],
-        [16, "quindecillion"],
-        [17, "sexdecillion"],
-        [18, "septendecillion"],
-        [19, "octodecillion"],
-        [20, "novemdecillion"],
-        [21, "vigintillion"],
-        [101, "centillion"],
-        [1001, "millinillion"],
-      ]);
-      const VERIFIED_REAL_SCALE_CEILING_INDEX = 1001;
-      const VERIFIED_REAL_SCALE_CEILING_LABEL = REAL_SCALE_NAMES.get(VERIFIED_REAL_SCALE_CEILING_INDEX) || "millinillion";
-
-      const UNIT_PREFIXES = {
-        0: "",
-        1: "un",
-        2: "duo",
-        3: "tre",
-        4: "quattuor",
-        5: "quinqua",
-        6: "sex",
-        7: "septen",
-        8: "octo",
-        9: "novem",
-      };
-
-      const TENS_PREFIXES = {
-        0: "",
-        1: "deci",
-        2: "vigint",
-        3: "trigint",
-        4: "quadragint",
-        5: "quinquagint",
-        6: "sexagint",
-        7: "septuagint",
-        8: "octogint",
-        9: "nonagint",
-      };
-
-      const HUNDREDS_PREFIXES = {
-        0: "",
-        1: "cent",
-        2: "ducent",
-        3: "trecent",
-        4: "quadringent",
-        5: "quingent",
-        6: "sescent",
-        7: "septingent",
-        8: "octingent",
-        9: "nongent",
-      };
-
-      const FORMATTER_SAMPLES = [
-        { value: 0n, expected: "zero", label: "Zero" },
-        { value: 1000n, expected: "one thousand", label: "Thousand" },
-        { value: 1000000n, expected: "one million", label: "Million" },
-        { value: 1000000000n, expected: "one billion", label: "Billion" },
-        { value: 1000000000000n, expected: "one trillion", label: "Trillion" },
-        { value: 1000000000000000n, expected: "one quadrillion", label: "Quadrillion" },
-        { value: 1000000000000000000n, expected: "one quintillion", label: "Quintillion" },
-        { value: 1000000000000000000000n, expected: "one sextillion", label: "Sextillion" },
-        { value: 10n ** 63n, expected: "one vigintillion", label: "Vigintillion" },
-        { value: 10n ** 303n, expected: "one centillion", label: "Centillion" },
-        { value: ENGINE_HARD_STOP, expected: "one millinillion", label: "Millinillion" },
-        { value: 10n ** 3006n, expected: "greater than millinillion", label: "Boundary clamp" },
-      ];
-
-      function cx(...parts) {
-        return parts.filter(Boolean).join(" ");
-      }
-
-      function clampBigInt(value, min, max) {
-        if (value < min) return min;
-        if (value > max) return max;
-        return value;
-      }
-
-      function parseBigIntInput(raw, fallback) {
-        const digits = String(raw).replace(/[^\d]/g, "");
-        if (!digits) {
-          return fallback;
-        }
-        try {
-          return BigInt(digits);
-        } catch {
-          return fallback;
-        }
-      }
-
-      function formatBigInt(value) {
-        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      }
-
-      function truncateLabel(text, limit) {
-        if (text.length <= limit) {
-          return text;
-        }
-        return `${text.slice(0, Math.max(0, limit - 1))}…`;
-      }
-
-      function escapeRegExp(text) {
-        return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      }
-
-      function containsLetter(text, letter) {
-        const lower = letter.toLowerCase();
-        const upper = letter.toUpperCase();
-        for (let index = 0; index < text.length; index += 1) {
-          const char = text[index];
-          if (char === lower || char === upper) {
-            return true;
-          }
-        }
-        return false;
-      }
-
-      function containsWord(text, word) {
-        if (!word) {
-          return false;
-        }
-        return new RegExp(escapeRegExp(word), "i").test(text);
-      }
-
-      function chunkToWords(value) {
-        const n = Number(value);
-        if (n === 0) {
-          return "";
-        }
-
-        const parts = [];
-        const hundreds = Math.floor(n / 100);
-        const remainder = n % 100;
-
-        if (hundreds) {
-          parts.push(SMALL_WORDS[hundreds], "hundred");
-        }
-
-        if (remainder >= 20) {
-          parts.push(TENS_WORDS[Math.floor(remainder / 10)]);
-          const ones = remainder % 10;
-          if (ones) {
-            parts.push(SMALL_WORDS[ones]);
-          }
-        } else if (remainder >= 10) {
-          parts.push(SMALL_WORDS[remainder]);
-        } else if (remainder > 0) {
-          parts.push(SMALL_WORDS[remainder]);
-        }
-
-        return parts.join(" ");
-      }
-
-      function buildGeneratedIllionName(scaleIndex) {
-        const base = Math.max(0, scaleIndex - 1);
-        const hundreds = Math.floor(base / 100) % 10;
-        const tens = Math.floor(base / 10) % 10;
-        const units = base % 10;
-        const parts = [
-          UNIT_PREFIXES[units] || "",
-          TENS_PREFIXES[tens] || "",
-          HUNDREDS_PREFIXES[hundreds] || "",
-        ].filter(Boolean);
-
-        if (!parts.length) {
-          return "thousand";
-        }
-
-        return `${parts.join("")}illion`;
-      }
-
-      function getScaleLabel(scaleIndex, budgetMs = SCALE_NAME_BUDGET_MS) {
-        if (scaleIndex === 0) {
-          return {
-            label: "",
-            type: "real",
-            sourceLabel: "verified real table",
-            boundaryStatus: "within supported range",
-            isVerified: true,
-          };
-        }
-
-        const real = REAL_SCALE_NAMES.get(scaleIndex);
-        if (real) {
-          return {
-            label: real,
-            type: "real",
-            sourceLabel: "verified real table",
-            boundaryStatus: scaleIndex === VERIFIED_REAL_SCALE_CEILING_INDEX ? "highest supported real entry" : "within supported range",
-            isVerified: true,
-          };
-        }
-
-        if (scaleIndex > VERIFIED_REAL_SCALE_CEILING_INDEX) {
-          return {
-            label: `greater than ${VERIFIED_REAL_SCALE_CEILING_LABEL}`,
-            type: "generated-limit",
-            sourceLabel: "unresolved beyond verified real scale table",
-            boundaryStatus: "outside supported boundary",
-            isVerified: false,
-          };
-        }
-
-        const started = performance.now();
-        const generated = buildGeneratedIllionName(scaleIndex);
-        if (performance.now() - started > budgetMs) {
-          return {
-            label: `greater than ${VERIFIED_REAL_SCALE_CEILING_LABEL}`,
-            type: "generated-limit",
-            sourceLabel: "unresolved beyond verified real scale table",
-            boundaryStatus: "outside supported boundary",
-            isVerified: false,
-          };
-        }
-
-        return {
-          label: generated,
-          type: "generated",
-          sourceLabel: "generated helper",
-          boundaryStatus: "within supported range",
-          isVerified: false,
-        };
-      }
-
-      function getDominantScaleDescriptor(value, budgetMs = SCALE_NAME_BUDGET_MS) {
-        const magnitude = value < 0n ? -value : value;
-        if (magnitude < 1000n) {
-          return {
-            label: "sub-thousand",
-            type: "real",
-            sourceLabel: "verified real table",
-            boundaryStatus: "within supported range",
-            group: 0,
-            isVerified: true,
-          };
-        }
-
-        const digits = magnitude.toString().length;
-        const group = Math.floor((digits - 1) / 3);
-        const labelInfo = getScaleLabel(group, budgetMs);
-        return { ...labelInfo, group };
-      }
-
-      function numberToWords(value) {
-        let current = typeof value === "bigint" ? value : BigInt(value);
-        if (current === 0n) {
-          return "zero";
-        }
-        if (current < 0n) {
-          return `minus ${numberToWords(-current)}`;
-        }
-
-        const parts = [];
-        let scaleIndex = 0;
-
-        while (current > 0n) {
-          const chunk = Number(current % 1000n);
-          if (chunk) {
-            const words = chunkToWords(chunk);
-            const scaleWordInfo = getScaleLabel(scaleIndex);
-            if (scaleWordInfo.type === "generated-limit") {
-              return scaleWordInfo.label;
-            }
-            parts.push(scaleWordInfo.label ? `${words} ${scaleWordInfo.label}` : words);
-          }
-          current /= 1000n;
-          scaleIndex += 1;
-        }
-
-        return parts.reverse().join(" ");
-      }
-
-      function clampPercent(value) {
-        return Math.max(0, Math.min(100, Math.round(value)));
-      }
-
-      function pressureFromLength(length, cap, options = {}) {
-        const lengthRatio = cap > 0 ? (length / cap) * 100 : 0;
-        const textareaPenalty = options.textareaMounted ? 10 : 0;
-        const scanPenalty = options.fullScanActive ? 12 : 0;
-        const nearCapBoost = lengthRatio > 80 ? 15 : 0;
-        const base = lengthRatio * 0.7;
-        return clampPercent(base + textareaPenalty + scanPenalty + nearCapBoost);
-      }
-
-      function pressureFromEngineState(dominantScale, previewLength, engineStrategy, previewAnalysisActive) {
-        if (dominantScale.boundaryStatus === "outside supported boundary") {
-          return 95;
-        }
-
-        const scaleIndex = Math.max(0, dominantScale.group || 0);
-        const scaleBandPressure = scaleIndex === 0 ? 5 : Math.min(80, Math.round(Math.log10(scaleIndex + 1) * 22 + 8));
-        const strategyPenalty = engineStrategy === "derived" ? 6 : 0;
-        const previewPenalty = Math.min(8, Math.round(previewLength / 18));
-        const analysisPenalty = previewAnalysisActive ? 4 : 0;
-        return clampPercent(scaleBandPressure + strategyPenalty + previewPenalty + analysisPenalty);
-      }
-
-      function pressureFromBoundary(dominantScale) {
-        if (dominantScale.boundaryStatus === "highest supported real entry") {
-          return 70;
-        }
-
-        if (dominantScale.boundaryStatus === "outside supported boundary") {
-          return 100;
-        }
-
-        if (dominantScale.sourceLabel === "generated helper") {
-          return Math.min(24, Math.max(8, Math.round((dominantScale.group || 0) / 40)));
-        }
-
-        return 0;
-      }
-
-      function getPressureSourceLabel(mode, labEnabled, dominantScale) {
-        if (labEnabled) {
-          return "Symbolic override";
-        }
-
-        if (dominantScale.boundaryStatus === "highest supported real entry" || dominantScale.boundaryStatus === "outside supported boundary") {
-          return "Boundary-limited";
-        }
-
-        return mode === "engine" ? "Engine-bound" : "Render-bound";
-      }
-
-      function getScaleBand(value) {
-        const magnitude = value < 0n ? -value : value;
-        let active = { label: "sub-thousand", value: 0n };
-        for (const band of SCALE_MILESTONES) {
-          if (magnitude >= band.value) {
-            active = band;
-          }
-        }
-        return active;
-      }
-
-      function resolveTriState(override, fallback) {
-        return override === null ? fallback : override;
-      }
-
-      function Badge({ tone = "info", children }) {
-        return h("span", { className: "badge", "data-tone": tone }, children);
-      }
-
-      function Segmented({ value, options, onChange, ariaLabel }) {
-        return h(
-          "div",
-          { className: "segmented", role: "group", "aria-label": ariaLabel },
-          options.map((option) =>
-            h(
-              "button",
-              {
-                key: String(option.value),
-                type: "button",
-                className: cx("segment", Object.is(option.value, value) && "is-active"),
-                onClick: () => onChange(option.value),
-                "aria-pressed": Object.is(option.value, value),
-              },
-              option.label,
-              option.detail ? h("small", null, option.detail) : null,
-            ),
-          ),
-        );
-      }
-
-      function Meter({ label, value, tone, detail }) {
-        return h(
-          "div",
-          { className: "meter" },
-          h(
-            "div",
-            { className: "meter-head" },
-            h("span", null, label),
-            h("strong", null, `${value}%`),
-          ),
-          h("div", { className: "meter-track" }, h("span", { className: "meter-fill", style: { width: `${value}%` } })),
-          h("small", null, detail),
-        );
-      }
-
-      function ModeSelector({ mode, setMode }) {
-        const items = Object.entries(MODE_CONFIG).map(([key, config]) => ({
-          key,
-          label: config.label,
-          detail: config.detail,
-        }));
-
-        return h(
-          "div",
-          { className: "mode-switcher", role: "tablist", "aria-label": "Mode selector" },
-          items.map((item) =>
-            h(
-              "button",
-              {
-                key: item.key,
-                type: "button",
-                className: cx("mode-pill", mode === item.key && "is-active"),
-                onClick: () => setMode(item.key),
-                "aria-pressed": mode === item.key,
-              },
-              h("strong", null, item.label),
-              h("small", null, item.detail),
-            ),
-          ),
-        );
-      }
-
-      function StatGrid({ mode, sourceLabel, activeCount, countWord, parity, solved, bandLabel }) {
-        const displayCount = truncateLabel(formatBigInt(activeCount), 20);
-        const displayCountWord = truncateLabel(countWord, 24);
-        return h(
-          "div",
-          { className: "stats", "aria-label": "System highlights" },
-          h(
-            "article",
-            { className: "stat" },
-            h("span", null, "Mode"),
-            h("strong", null, MODE_CONFIG[mode].label),
-            h("small", null, MODE_CONFIG[mode].detail),
-          ),
-          h(
-            "article",
-            { className: "stat" },
-            h("span", null, "Source"),
-            h("strong", null, sourceLabel),
-            h("small", null, "Render-bound, engine-bound, symbolic override, or boundary-limited."),
-          ),
-          h(
-            "article",
-            { className: "stat" },
-            h("span", null, "Effective count"),
-            h("strong", { title: `${formatBigInt(activeCount)} chars` }, `${displayCount} chars`),
-            h("small", { title: countWord }, displayCountWord),
-          ),
-          h(
-            "article",
-            { className: "stat" },
-            h("span", null, "Parity / solve"),
-            h("strong", null, `${parity.toUpperCase()} · ${solved ? "Solved" : "Open"}`),
-            h("small", null, bandLabel),
-          ),
-        );
-      }
-
-      function TextEditorPanel({ mode, text, setText, cap, activeCount, countWord, parity, forbiddenHit, countWordHit, solved, labEnabled }) {
-        return h(
-          "div",
-          { className: "card control-card" },
-          h(
-            "div",
-            { className: "section-head" },
-            h("p", { className: "eyebrow" }, "Render-bound input"),
-            h("h2", null, `${MODE_CONFIG[mode].label} textarea`),
-            h(
-              "p",
-              null,
-              "Safe and unsafe modes keep the live textarea as the source of truth. Caps stay fixed so we can still test render pressure directly.",
-            ),
-          ),
-          h(
-            "div",
-            { className: "field-grid" },
-            h(
-              "div",
-              { className: "field" },
-              h(
-                "div",
-                { className: "field-head" },
-                h("span", { className: "field-label" }, "Live text"),
-                h("span", { className: "field-hint" }, `${formatBigInt(BigInt(text.length))} / ${formatBigInt(cap)} chars`),
-              ),
-              h("textarea", {
-                className: "textarea",
-                value: text,
-                maxLength: Number(cap),
-                onChange: (event) => setText(event.target.value),
-                spellCheck: false,
-                autoCapitalize: "off",
-                autoCorrect: "off",
-                placeholder: "Type a live body here for render-bound modes.",
-              }),
-            ),
-            h(
-              "div",
-              { className: "chip-row" },
-              h(Badge, { tone: "info" }, `Count word: ${countWord}`),
-              h(Badge, { tone: forbiddenHit ? "bad" : "good" }, `Forbidden ${FORBIDDEN_LETTER}: ${forbiddenHit ? "present" : "clear"}`),
-              h(Badge, { tone: parity === "even" ? "good" : "warn" }, `Parity: ${parity}`),
-              h(Badge, { tone: solved ? "good" : "warn" }, solved ? "Solved" : "Not solved"),
-              labEnabled ? h(Badge, { tone: "warn" }, "Lab override active") : null,
-            ),
-            h(
-              "div",
-              { className: "status-grid" },
-              h(
-                "article",
-                { className: "status-card" },
-                h("span", null, "Effective count"),
-                h("strong", null, `${formatBigInt(activeCount)} chars`),
-                h("small", null, numberToWords(activeCount)),
-              ),
-              h(
-                "article",
-                { className: "status-card" },
-                h("span", null, "Count word"),
-                h("strong", null, countWord),
-                h("small", null, countWordHit ? "PASS: count word is present." : "FAIL: count word is absent."),
-              ),
-            ),
-          ),
-        );
-      }
-
-      function EnginePanel({
-        engineLengthRaw,
-        setEngineLengthRaw,
-        enginePrefix,
-        setEnginePrefix,
-        engineSeed,
-        setEngineSeed,
-        engineSuffix,
-        setEngineSuffix,
-        engineStrategy,
-        setEngineStrategy,
-        containsForbiddenOverride,
-        setContainsForbiddenOverride,
-        containsCountOverride,
-        setContainsCountOverride,
-        virtualCountWord,
-        activeCount,
-        parity,
-        solved,
-      }) {
-        const previewSurface = [enginePrefix, engineSeed, engineSuffix].filter(Boolean).join(" ").trim();
-        const previewText = previewSurface || " ";
-        const dominantScale = getDominantScaleDescriptor(activeCount);
-        const digitCount = activeCount.toString().length;
-        const displayDominantScale = truncateLabel(dominantScale.label, 28);
-        const compactLengthSummary = `${displayDominantScale} · ${digitCount} digits`;
-
-        return h(
-          "div",
-          { className: "card control-card" },
-          h(
-            "div",
-            { className: "section-head" },
-            h("p", { className: "eyebrow" }, "Symbolic engine"),
-            h("h2", null, "Engine Mode"),
-            h(
-              "p",
-              null,
-              "Engine mode does not store or render a giant textarea. It runs the parity logic from a structured engine-state model and only previews a small prefix and suffix.",
-            ),
-          ),
-          h(
-            "div",
-            { className: "field-grid" },
-            h(
-              "div",
-              { className: "field" },
-              h(
-                "div",
-                { className: "field-head" },
-                h("span", { className: "field-label" }, "Virtual length"),
-                h("span", { className: "field-hint", title: `${numberToWords(activeCount)} · ${formatBigInt(activeCount)} chars` }, compactLengthSummary),
-              ),
-              h("input", {
-                className: "input",
-                type: "text",
-                inputMode: "numeric",
-                value: engineLengthRaw,
-                onChange: (event) => setEngineLengthRaw(event.target.value.replace(/[^\d]/g, "")),
-                placeholder: "1000000",
-              }),
-              h(
-                "div",
-                { className: "quick-buttons" },
-                QUICK_LENGTHS.map((value) =>
-                  h(
-                    "button",
-                    {
-                      key: value.toString(),
-                      type: "button",
-                      className: "quick-button",
-                      onClick: () => setEngineLengthRaw(value.toString()),
-                    },
-                    formatBigInt(value),
-                  ),
-                ),
-              ),
-            ),
-            h(
-              "div",
-              { className: "status-grid" },
-              h(
-                "article",
-                { className: "status-card" },
-                h("span", null, "Strategy"),
-                h("strong", null, engineStrategy === "manual" ? "Manual overrides" : "Derived approximation"),
-                h(
-                  "small",
-                  null,
-                  engineStrategy === "manual"
-                    ? "Manual mode is deterministic. Auto states can still fall back to preview-derived values."
-                    : "Derived mode inspects only the preview surface and is explicitly approximate.",
-                ),
-              ),
-              h(
-                "article",
-                { className: "status-card" },
-                h("span", null, "Surface"),
-                h("strong", null, `${formatBigInt(BigInt(previewText.length))} chars`),
-                h("small", null, "Preview text is bounded and never becomes the primary storage path."),
-              ),
-              h(
-                "article",
-                { className: "status-card" },
-                h("span", null, "Dominant scale"),
-                h("strong", { title: dominantScale.label }, displayDominantScale),
-                h("small", null, `Scale source: ${dominantScale.sourceLabel}`),
-                h("small", null, `Boundary status: ${dominantScale.boundaryStatus}`),
-              ),
-            ),
-            h(
-              "div",
-              { className: "field-grid" },
-              h(
-                "div",
-                { className: "field" },
-                h("div", { className: "field-head" }, h("span", { className: "field-label" }, "Engine strategy"), h("span", { className: "field-hint" }, "Manual first, derived when you want approximation.")),
-                h(Segmented, {
-                  ariaLabel: "Engine strategy",
-                  value: engineStrategy,
-                  onChange: setEngineStrategy,
-                  options: [
-                    { value: "manual", label: "Manual", detail: "deterministic" },
-                    { value: "derived", label: "Derived", detail: "approximate" },
-                  ],
-                }),
-              ),
-              h(
-                "div",
-                { className: "field-grid" },
-                h(
-                  "div",
-                  { className: "field" },
-                  h("div", { className: "field-head" }, h("span", { className: "field-label" }, "Prefix preview"), h("span", { className: "field-hint" }, "Small visible prefix only.")),
-                  h("input", {
-                    className: "input",
-                    type: "text",
-                    value: enginePrefix,
-                    onChange: (event) => setEnginePrefix(event.target.value),
-                    maxLength: 80,
-                    placeholder: "prefix",
-                  }),
-                ),
-                h(
-                  "div",
-                  { className: "field" },
-                  h("div", { className: "field-head" }, h("span", { className: "field-label" }, "Seed text"), h("span", { className: "field-hint" }, "The engine can inspect this seed, not a giant body.")),
-                  h("input", {
-                    className: "input",
-                    type: "text",
-                    value: engineSeed,
-                    onChange: (event) => setEngineSeed(event.target.value),
-                    maxLength: 120,
-                    placeholder: "seed text",
-                  }),
-                ),
-                h(
-                  "div",
-                  { className: "field" },
-                  h("div", { className: "field-head" }, h("span", { className: "field-label" }, "Suffix preview"), h("span", { className: "field-hint" }, "Small visible suffix only.")),
-                  h("input", {
-                    className: "input",
-                    type: "text",
-                    value: engineSuffix,
-                    onChange: (event) => setEngineSuffix(event.target.value),
-                    maxLength: 80,
-                    placeholder: "suffix",
-                  }),
-                ),
-              ),
-            ),
-            h(
-              "div",
-              { className: "field-grid" },
-              h(
-                "div",
-                { className: "field" },
-                h("div", { className: "field-head" }, h("span", { className: "field-label" }, "Contains forbidden letter"), h("span", { className: "field-hint" }, `Manual override or preview-derived (${FORBIDDEN_LETTER}).`)),
-                h(Segmented, {
-                  ariaLabel: "Forbidden letter override",
-                  value: containsForbiddenOverride,
-                  onChange: setContainsForbiddenOverride,
-                  options: [
-                    { value: null, label: "Auto", detail: "preview" },
-                    { value: true, label: "Yes", detail: "force true" },
-                    { value: false, label: "No", detail: "force false" },
-                  ],
-                }),
-              ),
-              h(
-                "div",
-                { className: "field" },
-                h("div", { className: "field-head" }, h("span", { className: "field-label" }, "Contains count word"), h("span", { className: "field-hint" }, "Manual override or preview-derived count word.")),
-                h(Segmented, {
-                  ariaLabel: "Count word override",
-                  value: containsCountOverride,
-                  onChange: setContainsCountOverride,
-                  options: [
-                    { value: null, label: "Auto", detail: "preview" },
-                    { value: true, label: "Yes", detail: "force true" },
-                    { value: false, label: "No", detail: "force false" },
-                  ],
-                }),
-              ),
-            ),
-            h(
-              "div",
-              { className: "card formatter-card", style: { padding: "18px" } },
-              h(
-                "div",
-                { className: "field-head" },
-                h("span", { className: "field-label" }, "Rendered preview"),
-                h("span", { className: "field-hint" }, "Only a small surface is shown."),
-              ),
-              h(
-                "pre",
-                { className: "preview-window" },
-                `prefix: ${enginePrefix || "∅"}\nseed: ${engineSeed || "∅"}\nsuffix: ${engineSuffix || "∅"}\n\nsurface: ${previewText}\n\nlogical scale: ${displayDominantScale}\ndigits: ${digitCount}\ncount word: ${truncateLabel(virtualCountWord, 40)}\nparity: ${parity}\nsolved: ${solved ? "yes" : "no"}`,
-              ),
-            ),
-          ),
-        );
-      }
-
-      function PressurePanel({ mode, pressureSourceLabel, renderPressure, enginePressure, boundaryPressure }) {
-        const renderTone = renderPressure > 75 ? "warn" : "good";
-        const engineTone = enginePressure > 75 ? "warn" : "good";
-        const boundaryTone = boundaryPressure >= 100 ? "bad" : boundaryPressure >= 70 ? "warn" : "info";
-        return h(
-          "div",
-          { className: "card meter-card" },
-          h(
-            "div",
-            { className: "section-head" },
-            h("p", { className: "eyebrow" }, "Stress meter"),
-            h("h2", null, "Render, engine, and boundary pressure"),
-            h("p", null, "Safe and unsafe stay render-bound. Engine mode shifts pressure to the logical model. Boundary pressure shows how close the scale is to the verified ceiling."),
-          ),
-          h(
-            "div",
-            { className: "chip-row", style: { marginBottom: "14px" } },
-            h(Badge, { tone: "info" }, pressureSourceLabel),
-            h(Badge, { tone: renderTone }, renderPressure > 75 ? "High render pressure" : "Render pressure steady"),
-            h(Badge, { tone: engineTone }, enginePressure > 75 ? "High engine pressure" : "Engine pressure steady"),
-            h(Badge, { tone: boundaryTone }, boundaryPressure >= 100 ? "Boundary critical" : boundaryPressure >= 70 ? "Boundary elevated" : "Boundary steady"),
-          ),
-          h(
-            "div",
-            { className: "meter-grid" },
-            h(Meter, {
-              label: "Render pressure",
-              value: renderPressure,
-              detail: mode === "engine" ? "This reflects preview surface cost in symbolic mode." : "This reflects the visible surface: textarea plus live checks.",
-            }),
-            h(Meter, {
-              label: "Engine pressure",
-              value: enginePressure,
-              detail: mode === "engine" ? "This reflects logical scale, strategy, and preview analysis." : "Inactive in render-bound modes.",
-            }),
-            h(Meter, {
-              label: "Boundary pressure",
-              value: boundaryPressure,
-              detail:
-                boundaryPressure >= 100
-                  ? "Outside the verified real scale table."
-                  : boundaryPressure >= 70
-                    ? "At the highest supported real entry."
-                    : "Within the verified real table.",
-            }),
-          ),
-        );
-      }
-
-      function ScaleMilestones({ activeCount, onJump }) {
-        const activeBand = getScaleBand(activeCount);
-        const dominantScale = getDominantScaleDescriptor(activeCount);
-        const displayDominantScale = truncateLabel(dominantScale.label, 24);
-        return h(
-          "div",
-          { className: "card meter-card" },
-          h(
-            "div",
-            { className: "section-head" },
-            h("p", { className: "eyebrow" }, "Scale milestones"),
-            h("h2", null, "Count bands and boundary-aware naming"),
-            h("p", null, "Engine Mode shows verified real names first, labels helpers explicitly, and stops cleanly at the supported boundary."),
-          ),
-          h(
-            "div",
-            { className: "check-summary", style: { marginBottom: "14px" } },
-            h(Badge, { tone: dominantScale.type === "real" ? "good" : dominantScale.type === "generated" ? "warn" : "bad" }, `Dominant scale: ${displayDominantScale}`),
-            h(Badge, { tone: dominantScale.sourceLabel === "verified real table" ? "good" : dominantScale.sourceLabel === "generated helper" ? "warn" : "bad" }, `Scale source: ${dominantScale.sourceLabel}`),
-            h(Badge, { tone: dominantScale.boundaryStatus === "highest supported real entry" ? "warn" : dominantScale.boundaryStatus === "outside supported boundary" ? "bad" : "info" }, `Boundary status: ${dominantScale.boundaryStatus}`),
-          ),
-          h(
-            "div",
-            { className: "chip-row", style: { marginBottom: "14px" } },
-            SCALE_MILESTONES.map((band) =>
-              h(
-                "span",
-                { key: band.label, className: cx("chip", activeCount >= band.value && "is-active") },
-                band.label,
-              ),
-            ),
-          ),
-          h(
-            "div",
-            { className: "milestone-row" },
-            SCALE_MILESTONES.map((band) =>
-              h(
-                "button",
-                {
-                  key: band.label,
-                  type: "button",
-                  className: cx("milestone", activeBand.label === band.label && "is-active"),
-                  onClick: () => onJump(band.value),
-                },
-                h("span", null, band.label),
-                h("strong", null, formatBigInt(band.value)),
-              ),
-            ),
-          ),
-        );
-      }
-
-      function LabPanel({ labEnabled, setLabEnabled, labCountRaw, setLabCountRaw, labCount, labWords, labParity }) {
-        const displayLabWords = truncateLabel(labWords, 28);
-        return h(
-          "div",
-          { className: "card lab-card" },
-          h(
-            "div",
-            { className: "section-head" },
-            h("p", { className: "eyebrow" }, "Large-count lab"),
-            h("h2", null, "Direct count override"),
-            h("p", null, "This lab keeps count, parity, and word formatting independent from the textarea. It is the clean direct-count path."),
-          ),
-          h(
-            "div",
-            { className: "toolbar", style: { marginBottom: "14px" } },
-            h(
-              "button",
-              {
-                type: "button",
-                className: cx("segment", labEnabled && "is-active"),
-                onClick: () => setLabEnabled((value) => !value),
-                "aria-pressed": labEnabled,
-              },
-              labEnabled ? "Using lab count" : "Use lab count in main logic",
-            ),
-            h(Badge, { tone: labEnabled ? "warn" : "info" }, labEnabled ? "Lab symbolic" : "Lab idle"),
-          ),
-          h(
-            "div",
-            { className: "field-grid" },
-            h(
-              "div",
-              { className: "field" },
-              h("div", { className: "field-head" }, h("span", { className: "field-label" }, "Lab count"), h("span", { className: "field-hint" }, "Direct count override, no giant string required.")),
-              h("input", {
-                className: "input",
-                type: "text",
-                inputMode: "numeric",
-                value: labCountRaw,
-                onChange: (event) => setLabCountRaw(event.target.value.replace(/[^\d]/g, "")),
-                placeholder: "1000000",
-              }),
-            ),
-            h(
-              "div",
-              { className: "status-grid" },
-              h(
-                "article",
-                { className: "status-card" },
-                h("span", null, "Lab count word"),
-                h("strong", { title: labWords }, displayLabWords),
-                h("small", null, "Formatter-backed direct count override."),
-              ),
-              h(
-                "article",
-                { className: "status-card" },
-                h("span", null, "Lab parity"),
-                h("strong", null, labParity.toUpperCase()),
-                h("small", null, labEnabled ? "This value can drive the main logic path." : "This value is visible but not active."),
-              ),
-            ),
-          ),
-        );
-      }
-
-      function FormatterSanityCard() {
-        const checks = useMemo(
-          () =>
-            FORMATTER_SAMPLES.map((sample) => {
-              const actual = numberToWords(sample.value);
-              return {
-                ...sample,
-                actual,
-                pass: actual === sample.expected,
-              };
-            }),
-          [],
-        );
-        const passCount = checks.filter((check) => check.pass).length;
-        const overallPass = passCount === checks.length;
-
-        useEffect(() => {
-          checks.forEach((check) => {
-            console.assert(check.pass, `Formatter check failed for ${check.label}: ${check.actual}`);
-          });
-        }, [checks]);
-
-        return h(
-          "div",
-          { className: "card formatter-card" },
-          h(
-            "div",
-            { className: "section-head" },
-            h("p", { className: "eyebrow" }, "Formatter sanity checks"),
-            h("h2", null, "Large-scale number wording"),
-            h("p", null, "These checks stay lightweight and verify the formatter without adding a heavy test framework."),
-          ),
-          h(
-            "div",
-            { className: "check-summary" },
-            h(Badge, { tone: overallPass ? "good" : "bad" }, overallPass ? `All ${checks.length} checks pass` : `${passCount}/${checks.length} checks pass`),
-            h(Badge, { tone: "info" }, "numberToWords supports real and generated scales"),
-          ),
-          h(
-            "div",
-            { className: "check-list" },
-            checks.map((check) =>
-              h(
-                "div",
-                { key: check.label, className: "check-row" },
-                h(
-                  "div",
-                  null,
-                  h("strong", null, `${check.label} · ${formatBigInt(check.value)}`),
-                  h("small", null, check.actual),
-                ),
-                h(Badge, { tone: check.pass ? "good" : "bad" }, check.pass ? "PASS" : "FAIL"),
-              ),
-            ),
-          ),
-        );
-      }
-
-      function ArchitectureNote() {
-        return h(
-          "div",
-          { className: "note-card" },
-          h("div", { className: "section-head", style: { marginBottom: "12px" } }, h("p", { className: "eyebrow" }, "Architecture honesty"), h("h2", null, "Three layers, kept separate")),
-          h(
-            "p",
-            null,
-            "Safe and unsafe are render-bound. Engine mode is logic-bound and symbolic, with no giant live textarea. Large-count lab is a direct count override for formatter and logic checks.",
-          ),
-        );
-      }
-
-      function VisualCore({ mode, sourceLabel, activeCount, countWord, parity, solved, forbiddenHit, bandLabel }) {
-        const shortCountWord = truncateLabel(countWord, 22);
-        const sourceTone =
-          sourceLabel === "Engine-bound"
-            ? "warn"
-            : sourceLabel === "Boundary-limited"
-              ? "bad"
-              : sourceLabel === "Symbolic override"
-                ? "info"
-                : "good";
-        return h(
-          "div",
-          { className: "visual-card" },
-          h(
-            "div",
-            { className: "visual-caption" },
-            h("span", null, "Inspect the signal"),
-            h("strong", null, `${MODE_CONFIG[mode].label} core`),
-          ),
-          h(
-            "div",
-            { className: "core", "aria-hidden": "true" },
-            h("div", { className: "orb" }),
-            h("div", { className: "ring ring-one" }),
-            h("div", { className: "ring ring-two" }),
-            h("div", { className: "ring ring-three" }),
-            h("div", { className: "node", "data-tone": "memory", style: { "--x": "-118px", "--y": "-56px", "--z": "38px" } }, `Count ${truncateLabel(formatBigInt(activeCount), 16)}`),
-            h("div", { className: "node", "data-tone": "relay", style: { "--x": "104px", "--y": "-76px", "--z": "-10px" } }, `Word ${shortCountWord}`),
-            h("div", { className: "node", "data-tone": "shield", style: { "--x": "-146px", "--y": "28px", "--z": "-6px" } }, `Parity ${parity}`),
-            h("div", { className: "node", "data-tone": "gate", style: { "--x": "124px", "--y": "40px", "--z": "24px" } }, solved ? "Solved" : "Open"),
-            h("div", { className: "node", "data-tone": "scan", style: { "--x": "-34px", "--y": "-146px", "--z": "5px" } }, forbiddenHit ? `Forbidden ${FORBIDDEN_LETTER}` : "Forbidden clear"),
-            h("div", { className: "node", "data-tone": "archive", style: { "--x": "8px", "--y": "140px", "--z": "-12px" } }, bandLabel),
-            h("div", { className: "node", "data-tone": "orbit", style: { "--x": "150px", "--y": "116px", "--z": "-8px" } }, sourceLabel),
-            h("div", { className: "node", "data-tone": "seal", style: { "--x": "-136px", "--y": "110px", "--z": "18px" } }, `Mode ${MODE_CONFIG[mode].label}`),
-            h(
-              "div",
-              { className: "core-label" },
-              h("span", null, "Symbolic core"),
-              h("strong", null, `${formatBigInt(activeCount)} chars · ${shortCountWord}`),
-              h("small", null, `${sourceLabel} · ${solved ? "Solved path" : "Open path"} · forbidden ${FORBIDDEN_LETTER}: ${forbiddenHit ? "present" : "clear"}`),
-            ),
-          ),
-          h(
-            "div",
-            { className: "chip-row", style: { marginTop: "14px", justifyContent: "center" } },
-            h(Badge, { tone: sourceTone }, sourceLabel),
-            h(Badge, { tone: parity === "even" ? "good" : "warn" }, `Parity ${parity}`),
-            h(Badge, { tone: solved ? "good" : "warn" }, solved ? "Solved" : "Not solved"),
-          ),
-        );
-      }
-
-      function App() {
-        const [mode, setMode] = useState("safe");
-        const [text, setText] = useState("Parity Pendulum keeps render and logic separate.");
-        const [engineLengthRaw, setEngineLengthRaw] = useState("1000000");
-        const [enginePrefix, setEnginePrefix] = useState("symbolic");
-        const [engineSeed, setEngineSeed] = useState("parity pendulum");
-        const [engineSuffix, setEngineSuffix] = useState("preview");
-        const [engineStrategy, setEngineStrategy] = useState("manual");
-        const [containsForbiddenOverride, setContainsForbiddenOverride] = useState(null);
-        const [containsCountOverride, setContainsCountOverride] = useState(null);
-        const [labEnabled, setLabEnabled] = useState(false);
-        const [labCountRaw, setLabCountRaw] = useState("1000000");
-
-        const modeConfig = MODE_CONFIG[mode];
-
-        useEffect(() => {
-          document.title = `Parity Pendulum | ${modeConfig.label}`;
-        }, [modeConfig.label]);
-
-        useEffect(() => {
-          window.__PARITY_PENDULUM_SET_MODE__ = setMode;
-          return () => {
-            if (window.__PARITY_PENDULUM_SET_MODE__ === setMode) {
-              window.__PARITY_PENDULUM_SET_MODE__ = null;
-            }
-          };
-        }, []);
-
-        const engineLength = useMemo(() => clampBigInt(parseBigIntInput(engineLengthRaw, 0n), 0n, ENGINE_HARD_STOP), [engineLengthRaw]);
-        const labCount = useMemo(() => clampBigInt(parseBigIntInput(labCountRaw, 0n), 0n, SCALE_MAX), [labCountRaw]);
-
-        const activeCount = labEnabled ? labCount : mode === "engine" ? engineLength : BigInt(text.length);
-        const countWord = numberToWords(activeCount);
-        const parity = activeCount % 2n === 0n ? "even" : "odd";
-        const activeBand = getScaleBand(activeCount);
-        const dominantScale = getDominantScaleDescriptor(activeCount);
-        const pressureSourceLabel = getPressureSourceLabel(mode, labEnabled, dominantScale);
-
-        const enginePreviewSurface = [enginePrefix, engineSeed, engineSuffix].filter(Boolean).join(" ").trim();
-        const derivedForbidden = containsLetter(enginePreviewSurface, FORBIDDEN_LETTER);
-        const derivedCountWord = containsWord(enginePreviewSurface, countWord);
-        const forbiddenHit =
-          mode === "engine"
-            ? engineStrategy === "derived"
-              ? derivedForbidden
-              : resolveTriState(containsForbiddenOverride, derivedForbidden)
-            : containsLetter(text, FORBIDDEN_LETTER);
-        const countWordHit =
-          mode === "engine"
-            ? engineStrategy === "derived"
-              ? derivedCountWord
-              : resolveTriState(containsCountOverride, derivedCountWord)
-            : containsWord(text, countWord);
-        const solved = parity === "even" && !forbiddenHit && countWordHit;
-
-        const renderSurfaceLength =
-          mode === "engine"
-            ? enginePreviewSurface.length + engineLengthRaw.length + dominantScale.label.length
-            : text.length;
-        const renderPressure = pressureFromLength(
-          renderSurfaceLength,
-          mode === "engine" ? 260 : Number(modeConfig.cap),
-          {
-            textareaMounted: mode !== "engine",
-            fullScanActive: mode !== "engine" || labEnabled,
-          },
-        );
-        const enginePressure =
-          mode === "engine"
-            ? pressureFromEngineState(dominantScale, enginePreviewSurface.length, engineStrategy, engineStrategy === "derived" && (derivedForbidden || derivedCountWord))
-            : 0;
-        const boundaryPressure = pressureFromBoundary(dominantScale);
-
-        const previewWords = numberToWords(clampBigInt(mode === "engine" ? engineLength : labCount, 0n, mode === "engine" ? ENGINE_HARD_STOP : SCALE_MAX));
-
-        const formatterMemo = useMemo(
-          () =>
-            FORMATTER_SAMPLES.map((sample) => {
-              const actual = numberToWords(sample.value);
-              return {
-                ...sample,
-                actual,
-                pass: actual === sample.expected,
-              };
-            }),
-          [],
-        );
-
-        useEffect(() => {
-          formatterMemo.forEach((check) => {
-            console.assert(check.pass, `Formatter check failed for ${check.label}: ${check.actual}`);
-          });
-        }, [formatterMemo]);
-
-          return h(
-            "main",
-            { className: "app-shell" },
-          h(
-            "section",
-            { className: "hero", "aria-labelledby": "pendulum-hero-title" },
-            h(
-              "div",
-              { className: "hero-copy" },
-              h("p", { className: "eyebrow" }, "Parity Pendulum"),
-              h("h1", { id: "pendulum-hero-title" }, "Separate render scaling from logic scaling"),
-              h(
-                "p",
-                { className: "lead" },
-                "Safe and unsafe still use the textarea path. Engine mode moves the big number into an engine-state model so we can test logical scale without a giant live surface becoming the bottleneck.",
-              ),
-              h(ModeSelector, { mode, setMode }),
-              h(StatGrid, {
-                mode,
-                sourceLabel: pressureSourceLabel,
-                activeCount,
-                countWord,
-                parity,
-                solved,
-                bandLabel: `Band: ${activeBand.label}`,
-              }),
-            ),
-            h(
-              "div",
-              { className: "visual-wrap" },
-              h(VisualCore, {
-                mode,
-                sourceLabel: pressureSourceLabel,
-                activeCount,
-                countWord,
-                parity,
-                solved,
-                forbiddenHit,
-                bandLabel: activeBand.label,
-              }),
-            ),
-          ),
-          h(
-            "section",
-            { className: "section", id: "workspace", "aria-labelledby": "pendulum-workspace-title" },
-            h(
-              "div",
-              { className: "section-head" },
-              h("p", { className: "eyebrow" }, "Workspace"),
-              h("h2", { id: "pendulum-workspace-title" }, "Mode-aware surface with a real engine path"),
-              h(
-                "p",
-                null,
-                "The editor stays render-bound in safe and unsafe. Engine mode switches to symbolic length, preview-only text, and manual or derived constraint signals.",
-              ),
-            ),
-            h(
-              "div",
-              { className: "workspace-grid" },
-              h(
-                "div",
-                { className: "workspace-stack" },
-                mode === "engine"
-                  ? h(EnginePanel, {
-                      engineLengthRaw,
-                      setEngineLengthRaw,
-                      enginePrefix,
-                      setEnginePrefix,
-                      engineSeed,
-                      setEngineSeed,
-                      engineSuffix,
-                      setEngineSuffix,
-                      engineStrategy,
-                      setEngineStrategy,
-                      containsForbiddenOverride,
-                      setContainsForbiddenOverride,
-                      containsCountOverride,
-                      setContainsCountOverride,
-                      virtualCountWord: previewWords,
-                      activeCount: engineLength,
-                      parity,
-                      solved,
-                    })
-                  : h(TextEditorPanel, {
-                      mode,
-                      text,
-                      setText,
-                      cap: modeConfig.cap,
-                      activeCount,
-                      countWord,
-                      parity,
-                      forbiddenHit,
-                      countWordHit,
-                      solved,
-                      labEnabled,
-                    }),
-              ),
-              h(
-                "div",
-                { className: "workspace-stack" },
-                h(PressurePanel, {
-                  mode,
-                  pressureSourceLabel,
-                  renderPressure,
-                  enginePressure,
-                  boundaryPressure,
-                }),
-                mode === "engine"
-                  ? h(ScaleMilestones, {
-                      activeCount: engineLength,
-                    onJump: (value) => setEngineLengthRaw(value.toString()),
-                  })
-                  : null,
-                h(
-                  "div",
-                  { className: "card meter-card" },
-                  h(
-                    "div",
-                    { className: "section-head" },
-                    h("p", { className: "eyebrow" }, "Logic readout"),
-                    h("h2", null, "Parity, forbidden letter, count word"),
-                    h("p", null, "These status cards stay the same across modes. Only the source path changes."),
-                  ),
-                  h(
-                    "div",
-                    { className: "status-grid" },
-                    h(
-                      "article",
-                      { className: "status-card" },
-                      h("span", null, "Parity"),
-                      h("strong", null, parity.toUpperCase()),
-                      h("small", null, "Even counts read as solved-friendly in this setup."),
-                    ),
-                    h(
-                      "article",
-                      { className: "status-card" },
-                      h("span", null, "Forbidden letter"),
-                      h("strong", null, forbiddenHit ? `Present: ${FORBIDDEN_LETTER}` : `Clear: ${FORBIDDEN_LETTER}`),
-                      h("small", null, "Safe and unsafe inspect the live textarea. Engine uses overrides or preview-derived signals."),
-                    ),
-                    h(
-                      "article",
-                      { className: "status-card" },
-                      h("span", null, "Count word"),
-                      h("strong", null, countWordHit ? "Present" : "Absent"),
-                      h("small", null, countWord),
-                    ),
-                    h(
-                      "article",
-                      { className: "status-card" },
-                      h("span", null, "Solved"),
-                      h("strong", null, solved ? "PASS" : "FAIL"),
-                      h("small", null, "Solved means even parity, no forbidden letter, and the count word present."),
-                    ),
-                  ),
-                ),
-                h(ArchitectureNote),
-              ),
-            ),
-          ),
-          h(
-            "section",
-            { className: "section", id: "lab", "aria-labelledby": "pendulum-lab-title" },
-            h(
-              "div",
-              { className: "section-head" },
-              h("p", { className: "eyebrow" }, "Large-count lab"),
-              h("h2", { id: "pendulum-lab-title" }, "Direct count override for formatter and logic checks"),
-              h(
-                "p",
-                null,
-                "This lab exists to keep a separate direct-count path available. It can stay idle, or it can drive the main count without inflating the textarea.",
-              ),
-            ),
-            h(LabPanel, {
-              labEnabled,
-              setLabEnabled,
-              labCountRaw,
-              setLabCountRaw,
-              labCount,
-              labWords: numberToWords(labCount),
-              labParity: labCount % 2n === 0n ? "even" : "odd",
-            }),
-          ),
-          h(
-            "section",
-            { className: "section", id: "formatter", "aria-labelledby": "pendulum-formatter-title" },
-            h(
-              "div",
-              { className: "section-head" },
-              h("p", { className: "eyebrow" }, "Formatter"),
-              h("h2", { id: "pendulum-formatter-title" }, "Large-scale checks stay visible"),
-              h(
-                "p",
-                null,
-                "The app keeps a lightweight internal sanity row so the large-scale formatter path stays explicit after the engine refactor.",
-              ),
-            ),
-            h(
-              "div",
-              { className: "card formatter-card" },
-              h(
-                "div",
-                { className: "check-summary" },
-                h(Badge, { tone: formatterMemo.every((check) => check.pass) ? "good" : "bad" }, formatterMemo.every((check) => check.pass) ? `All ${formatterMemo.length} formatter checks pass` : "Formatter checks failed"),
-                h(Badge, { tone: "info" }, "numberToWords supports real and generated scales"),
-              ),
-              h(
-                "div",
-                { className: "check-list" },
-                formatterMemo.map((check) =>
-                  h(
-                    "div",
-                    { key: check.label, className: "check-row" },
-                    h(
-                      "div",
-                      null,
-                      h("strong", null, `${check.label} · ${formatBigInt(check.value)}`),
-                      h("small", null, check.actual),
-                    ),
-                    h(Badge, { tone: check.pass ? "good" : "bad" }, check.pass ? "PASS" : "FAIL"),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          h(
-            "footer",
-            { className: "footer" },
-            h("span", null, "Coupyn Labs."),
-            h("span", null, "Parity Pendulum"),
-            h("span", null, "Safe, unsafe, engine, and lab symbolic"),
-          ),
-        );
-      }
-
-      ReactDOM.createRoot(document.getElementById("root")).render(h(App));
-    })();
-  </script>
   <main>
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
@@ -2780,6 +1671,7 @@
         <div class="hero-actions">
           <a class="button button-primary" href="#destination">Snapshot your memories</a>
           <a class="button button-secondary" href="#how">See how it works</a>
+          <a class="button button-galaxy" href="./galaxy/">Explore the Milky Way</a>
           <a class="button button-secondary pendulum-button" href="#pendulum-core">Activate Pendulum</a>
           <div class="price-tag" aria-label="Snapshot price">
             <strong>Z&#x20A0; 1,000,000</strong>
@@ -3021,303 +1913,366 @@
       </div>
     </section>
 
+    <section class="section" id="frame-isolation" aria-labelledby="frame-isolation-title">
+      <div class="section-head">
+        <p class="eyebrow">Frame isolation</p>
+        <h2 id="frame-isolation-title">Deterministically filter raw frames before any downstream analysis</h2>
+        <p>
+          Pick a folder of extracted frames. ZEE will score each image only on technical signal quality:
+          blur, brightness, contrast, and visible structure in the center window region. No semantic inference is performed.
+        </p>
+      </div>
+
+      <div class="frame-grid">
+        <div class="frame-controls">
+          <input
+            class="input"
+            id="frame-folder-input"
+            type="file"
+            accept="image/*"
+            webkitdirectory
+            multiple
+          />
+          <button class="button button-secondary" id="frame-run-button" type="button">Filter frames</button>
+          <button class="button button-secondary" id="frame-reset-button" type="button">Reset</button>
+        </div>
+
+        <p class="lead" id="frame-folder-label" style="margin: 0;">No folder selected.</p>
+        <div class="frame-progress" aria-hidden="true">
+          <span id="frame-progress-fill"></span>
+        </div>
+        <p class="lead" id="frame-status" style="margin: 0;">Choose a folder of extracted frames to begin.</p>
+      </div>
+
+      <div class="frame-summary" style="margin-top: 18px;">
+        <article class="status-card">
+          <span>Kept</span>
+          <strong id="frame-summary-kept">0</strong>
+          <small>Frames that pass all technical checks.</small>
+        </article>
+        <article class="status-card">
+          <span>Discarded</span>
+          <strong id="frame-summary-rejected">0</strong>
+          <small>Frames rejected for blur, exposure, or structure loss.</small>
+        </article>
+        <article class="status-card">
+          <span>Total</span>
+          <strong id="frame-summary-total">0</strong>
+          <small>Image frames read from the selected folder.</small>
+        </article>
+      </div>
+
+      <div class="cards" style="margin-top: 18px;">
+        <article class="card">
+          <span>Valid paths</span>
+          <h3>Filtered frame list</h3>
+          <p>Only frames that remain technically usable are kept in order.</p>
+          <div class="frame-output" style="margin-top: 16px;">
+            <textarea class="textarea" id="frame-valid-paths" readonly spellcheck="false" placeholder="Valid frame paths will appear here."></textarea>
+          </div>
+        </article>
+
+        <article class="card">
+          <span>Diagnostics</span>
+          <h3>Per-frame JSON</h3>
+          <p>Each frame gets an explicit, deterministic explanation for the keep/discard decision.</p>
+          <div class="frame-output" style="margin-top: 16px;">
+            <textarea class="textarea" id="frame-diagnostics" readonly spellcheck="false" placeholder="Frame diagnostics JSON will appear here."></textarea>
+          </div>
+        </article>
+
+        <article class="card">
+          <span>Rules</span>
+          <h3>Technical gates only</h3>
+          <p>No model scoring, no semantic interpretation, no probabilistic ranking.</p>
+          <div class="check-list" style="margin-top: 16px;">
+            <div class="check-row">
+              <div>
+                <strong>Blur</strong>
+                <small>Reject low Laplacian variance frames that do not preserve edge clarity.</small>
+              </div>
+              <span class="badge" data-tone="info">deterministic</span>
+            </div>
+            <div class="check-row">
+              <div>
+                <strong>Brightness</strong>
+                <small>Discard frames that are too dark or blown out to inspect safely.</small>
+              </div>
+              <span class="badge" data-tone="info">deterministic</span>
+            </div>
+            <div class="check-row">
+              <div>
+                <strong>Window structure</strong>
+                <small>Require visible center-region structure so downstream reasoning sees signal, not blankness.</small>
+              </div>
+              <span class="badge" data-tone="info">deterministic</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="signal-extraction" aria-labelledby="signal-extraction-title">
+      <div class="section-head">
+        <p class="eyebrow">Signal extraction</p>
+        <h2 id="signal-extraction-title">Extract only directly visible signals from the filtered frame set</h2>
+        <p>
+          This layer separates observation from interpretation. It emits explicit colors, edges, line structures,
+          rectangular regions, and textured regions, all traceable back to pixels.
+        </p>
+      </div>
+
+      <div class="signal-grid">
+        <div class="signal-controls">
+          <button class="button button-secondary" id="signal-run-button" type="button">Extract observed signals</button>
+          <button class="button button-secondary" id="signal-reset-button" type="button">Reset output</button>
+        </div>
+
+        <p class="lead" id="signal-status" style="margin: 0;">Run frame isolation first to populate the filtered frame list.</p>
+        <div class="signal-progress" aria-hidden="true">
+          <span id="signal-progress-fill"></span>
+        </div>
+      </div>
+
+      <div class="signal-summary" style="margin-top: 18px;">
+        <article class="status-card">
+          <span>Frames</span>
+          <strong id="signal-summary-frames">0</strong>
+          <small>Filtered frames processed by the observed layer.</small>
+        </article>
+        <article class="status-card">
+          <span>Features</span>
+          <strong id="signal-summary-features">0</strong>
+          <small>Pixel-derived features emitted across all frames.</small>
+        </article>
+        <article class="status-card">
+          <span>Types</span>
+          <strong id="signal-summary-types">-</strong>
+          <small>Explicit signal classes found in the current run.</small>
+        </article>
+      </div>
+
+      <div class="signal-output" style="margin-top: 18px;">
+        <article class="card">
+          <span>Observed layer</span>
+          <h3>Structured signal JSON</h3>
+          <p>Each entry uses `frame_id` plus `observed_features[]` and stays tied to visible pixel evidence only.</p>
+          <textarea class="textarea" id="signal-output" readonly spellcheck="false" placeholder="Observed signal JSON will appear here."></textarea>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="signal-stability" aria-labelledby="signal-stability-title">
+      <div class="section-head">
+        <p class="eyebrow">Signal stability</p>
+        <h2 id="signal-stability-title">Retain only signals that recur with spatial consistency across frames</h2>
+        <p>
+          This validation pass groups observed signals by type, checks recurrence, and removes weak or unstable signals
+          before anything downstream can use them.
+        </p>
+      </div>
+
+      <div class="stability-grid">
+        <div class="stability-controls">
+          <button class="button button-secondary" id="stability-run-button" type="button">Validate stability</button>
+          <button class="button button-secondary" id="stability-reset-button" type="button">Reset stability</button>
+        </div>
+
+        <p class="lead" id="stability-status" style="margin: 0;">Run signal extraction first to populate observed frames.</p>
+        <div class="stability-progress" aria-hidden="true">
+          <span id="stability-progress-fill"></span>
+        </div>
+      </div>
+
+      <div class="stability-summary" style="margin-top: 18px;">
+        <article class="status-card">
+          <span>Stable</span>
+          <strong id="stability-stable-count">0</strong>
+          <small>Signals retained across multiple frames.</small>
+        </article>
+        <article class="status-card">
+          <span>Discarded</span>
+          <strong id="stability-discarded-count">0</strong>
+          <small>Signals marked weak or unstable.</small>
+        </article>
+        <article class="status-card">
+          <span>Total</span>
+          <strong id="stability-total-count">0</strong>
+          <small>All grouped signal clusters in the current validation run.</small>
+        </article>
+      </div>
+
+      <div class="stability-output" style="margin-top: 18px;">
+        <article class="card">
+          <span>Stable layer</span>
+          <h3>Stable and discarded signals</h3>
+          <p>Signals are retained only when they recur consistently and stay spatially coherent across frames.</p>
+          <textarea class="textarea" id="stability-output" readonly spellcheck="false" placeholder="Stable and discarded signal JSON will appear here."></textarea>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="signal-measurement" aria-labelledby="signal-measurement-title">
+      <div class="section-head">
+        <p class="eyebrow">Measurement</p>
+        <h2 id="signal-measurement-title">Quantify stable signals using numeric ranges and ratios only</h2>
+        <p>
+          This layer converts stable signals into comparable measurements such as color ranges, spacing ratios,
+          and density metrics. It does not assign meaning or classify systems.
+        </p>
+      </div>
+
+      <div class="measurement-grid">
+        <div class="measurement-controls">
+          <button class="button button-secondary" id="measurement-run-button" type="button">Run measurement</button>
+          <button class="button button-secondary" id="measurement-reset-button" type="button">Reset measurement</button>
+        </div>
+
+        <p class="lead" id="measurement-status" style="margin: 0;">Run signal stability first to populate stable signals.</p>
+        <div class="measurement-progress" aria-hidden="true">
+          <span id="measurement-progress-fill"></span>
+        </div>
+      </div>
+
+      <div class="measurement-summary" style="margin-top: 18px;">
+        <article class="status-card">
+          <span>Measurements</span>
+          <strong id="measurement-count">0</strong>
+          <small>Numeric or categorical measurements emitted from stable signals.</small>
+        </article>
+        <article class="status-card">
+          <span>Discarded</span>
+          <strong id="measurement-discarded-count">0</strong>
+          <small>Stable signals without measurable pixel values.</small>
+        </article>
+        <article class="status-card">
+          <span>Total</span>
+          <strong id="measurement-total-count">0</strong>
+          <small>All stable signals considered in the measurement pass.</small>
+        </article>
+      </div>
+
+      <div class="measurement-output" style="margin-top: 18px;">
+        <article class="card">
+          <span>Measured layer</span>
+          <h3>Comparable feature set</h3>
+          <p>Measurements stay numeric, normalized, and directly traceable to the stable signal inputs.</p>
+          <textarea class="textarea" id="measurement-output" readonly spellcheck="false" placeholder="Measurement JSON will appear here."></textarea>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="signal-inference" aria-labelledby="signal-inference-title">
+      <div class="section-head">
+        <p class="eyebrow">Inference gate</p>
+        <h2 id="signal-inference-title">Allow only bounded inference supported by multiple independent signals</h2>
+        <p>
+          This gate admits a claim only when it is justified by more than one measurement stream. Unsupported conclusions
+          are rejected explicitly and the reasoning chain stays visible.
+        </p>
+      </div>
+
+      <div class="inference-grid">
+        <div class="inference-controls">
+          <button class="button button-secondary" id="inference-run-button" type="button">Run inference gate</button>
+          <button class="button button-secondary" id="inference-reset-button" type="button">Reset inference</button>
+        </div>
+
+        <p class="lead" id="inference-status" style="margin: 0;">Run measurement first to populate measurable features.</p>
+        <div class="inference-progress" aria-hidden="true">
+          <span id="inference-progress-fill"></span>
+        </div>
+      </div>
+
+      <div class="inference-summary" style="margin-top: 18px;">
+        <article class="status-card">
+          <span>Inferred</span>
+          <strong id="inference-inferred-count">0</strong>
+          <small>Claims accepted with multi-signal support.</small>
+        </article>
+        <article class="status-card">
+          <span>Rejected</span>
+          <strong id="inference-rejected-count">0</strong>
+          <small>Unsupported or under-supported claims.</small>
+        </article>
+        <article class="status-card">
+          <span>Total</span>
+          <strong id="inference-total-count">0</strong>
+          <small>All candidate claims evaluated by the gate.</small>
+        </article>
+      </div>
+
+      <div class="inference-output" style="margin-top: 18px;">
+        <article class="card">
+          <span>Inference log</span>
+          <h3>Supported and rejected claims</h3>
+          <p>Each decision includes the reasoning chain and evidence links back to the measured signals.</p>
+          <textarea class="textarea" id="inference-output" readonly spellcheck="false" placeholder="Inference JSON will appear here."></textarea>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="bounded-output" aria-labelledby="bounded-output-title">
+      <div class="section-head">
+        <p class="eyebrow">Bounded output</p>
+        <h2 id="bounded-output-title">Assemble only evidence-bounded conclusions</h2>
+        <p>
+          This layer aggregates observed, measured, inferred, and rejected states into an audit-ready conclusion that
+          stays within the evidence and exposes what remains unknown.
+        </p>
+      </div>
+
+      <div class="final-grid">
+        <div class="final-controls">
+          <button class="button button-secondary" id="final-run-button" type="button">Build final output</button>
+          <button class="button button-secondary" id="final-reset-button" type="button">Reset final output</button>
+        </div>
+
+        <p class="lead" id="final-status" style="margin: 0;">Run upstream phases to assemble the bounded output.</p>
+        <div class="final-progress" aria-hidden="true">
+          <span id="final-progress-fill"></span>
+        </div>
+      </div>
+
+      <div class="final-summary" style="margin-top: 18px;">
+        <article class="status-card">
+          <span>Supported</span>
+          <strong id="final-supported-count">0</strong>
+          <small>Evidence-bounded findings retained in the final conclusion.</small>
+        </article>
+        <article class="status-card">
+          <span>Rejected</span>
+          <strong id="final-rejected-count">0</strong>
+          <small>Hypotheses and technical inputs rejected by the boundary.</small>
+        </article>
+        <article class="status-card">
+          <span>Unknown</span>
+          <strong id="final-unknown-count">0</strong>
+          <small>Explicit unknowns that remain outside the evidence.</small>
+        </article>
+        <article class="status-card">
+          <span>Total</span>
+          <strong id="final-total-count">0</strong>
+          <small>All bounded output entries assembled from upstream states.</small>
+        </article>
+      </div>
+
+      <div class="final-output" style="margin-top: 18px;">
+        <article class="card">
+          <span>Final output</span>
+          <h3>Evidence-bounded conclusion</h3>
+          <p>The JSON report includes supported findings, explicit rejections, unknowns, and confidence labels capped by the available evidence.</p>
+          <textarea class="textarea" id="final-output" readonly spellcheck="false" placeholder="Final bounded output JSON will appear here."></textarea>
+        </article>
+      </div>
+    </section>
+
     <footer class="footer">
       <span>Coupyn Labs.</span>
       <span>ZeroGlare Continuity Systems</span>
       <span>Static conceptual landing page</span>
     </footer>
   </main>
-  <script>
-    (() => {
-      const button = document.querySelector(".pendulum-button");
-      const core = document.querySelector(".pendulum-core");
-      if (!button || !core) {
-        return;
-      }
-
-      let resetTimer = null;
-      button.addEventListener("click", (event) => {
-        event.preventDefault();
-        const root = document.getElementById("root");
-        if (root) {
-          root.classList.add("is-visible");
-        }
-        document.body.classList.add("engine-mode");
-        if (typeof window.__PARITY_PENDULUM_SET_MODE__ === "function") {
-          window.__PARITY_PENDULUM_SET_MODE__("engine");
-        }
-        button.classList.add("is-active");
-        core.classList.add("is-pulsing");
-        window.requestAnimationFrame(() => {
-          const workspace = document.getElementById("workspace");
-          if (workspace) {
-            workspace.scrollIntoView({ behavior: "smooth", block: "start" });
-          } else if (root) {
-            root.scrollIntoView({ behavior: "smooth", block: "start" });
-          }
-        });
-
-        if (resetTimer) {
-          window.clearTimeout(resetTimer);
-        }
-
-        resetTimer = window.setTimeout(() => {
-          button.classList.remove("is-active");
-          core.classList.remove("is-pulsing");
-        }, 900);
-      });
-    })();
-  </script>
-  <script>
-    (() => {
-      const REAL_SCALE_NAMES = new Map([
-        [1, "thousand"],
-        [2, "million"],
-        [3, "billion"],
-        [4, "trillion"],
-        [5, "quadrillion"],
-        [6, "quintillion"],
-        [7, "sextillion"],
-        [8, "septillion"],
-        [9, "octillion"],
-        [10, "nonillion"],
-        [11, "decillion"],
-        [12, "undecillion"],
-        [13, "duodecillion"],
-        [14, "tredecillion"],
-        [15, "quattuordecillion"],
-        [16, "quindecillion"],
-        [17, "sexdecillion"],
-        [18, "septendecillion"],
-        [19, "octodecillion"],
-        [20, "novemdecillion"],
-        [21, "vigintillion"],
-        [100, "centillion"],
-      ]);
-
-      const UNIT_PREFIXES = {
-        0: "",
-        1: "un",
-        2: "duo",
-        3: "tre",
-        4: "quattuor",
-        5: "quinqua",
-        6: "sex",
-        7: "septen",
-        8: "octo",
-        9: "novem",
-      };
-
-      const TENS_PREFIXES = {
-        0: "",
-        1: "deci",
-        2: "vigint",
-        3: "trigint",
-        4: "quadragint",
-        5: "quinquagint",
-        6: "sexagint",
-        7: "septuagint",
-        8: "octogint",
-        9: "nonagint",
-      };
-
-      const HUNDREDS_PREFIXES = {
-        0: "",
-        1: "cent",
-        2: "ducent",
-        3: "trecent",
-        4: "quadringent",
-        5: "quingent",
-        6: "sescent",
-        7: "septingent",
-        8: "octingent",
-        9: "nongent",
-      };
-
-      const SCALE_NAME_BUDGET_MS = 60;
-      const SANITY_SAMPLES = [
-        { label: "quintillion", index: 6, expected: "quintillion", source: "real" },
-        { label: "vigintillion", index: 21, expected: "vigintillion", source: "real" },
-        { label: "centillion", index: 100, expected: "centillion", source: "real" },
-        { label: "millinillion", index: 1001, expected: "millinillion", source: "real" },
-        { label: "limit", index: 1002, expected: "greater than millinillion", source: "generated-limit", budgetMs: 0 },
-      ];
-
-      function getScaleIndexFromDigitCount(digits) {
-        if (!Number.isFinite(digits) || digits <= 3) {
-          return 0;
-        }
-        return Math.floor((digits - 1) / 3);
-      }
-
-      function getRealScaleName(index) {
-        return REAL_SCALE_NAMES.get(index) || "";
-      }
-
-      function buildGeneratedIllionName(index) {
-        const offset = index > 100 ? index : Math.max(0, index - 1);
-        const units = offset % 10;
-        const tens = Math.floor(offset / 10) % 10;
-        const hundreds = Math.floor(offset / 100) % 10;
-        const parts = [
-          UNIT_PREFIXES[units] || "",
-          TENS_PREFIXES[tens] || "",
-          HUNDREDS_PREFIXES[hundreds] || "",
-        ].filter(Boolean);
-
-        if (parts.length === 0) {
-          return "thousand";
-        }
-
-        return `${parts.join("")}illion`;
-      }
-
-      function getScaleNameWithBudget(index, budgetMs) {
-        const start = performance.now();
-        let lastResolvedName = VERIFIED_REAL_SCALE_CEILING_LABEL;
-
-        const real = getRealScaleName(index);
-        if (real) {
-          return {
-            label: real,
-            source: "real",
-            sourceLabel: "verified real table",
-            boundaryStatus: index === VERIFIED_REAL_SCALE_CEILING_INDEX ? "highest supported real entry" : "within supported range",
-          };
-        }
-
-        if (index > VERIFIED_REAL_SCALE_CEILING_INDEX) {
-          return {
-            label: `greater than ${VERIFIED_REAL_SCALE_CEILING_LABEL}`,
-            source: "generated-limit",
-            sourceLabel: "unresolved beyond verified real scale table",
-            boundaryStatus: "outside supported boundary",
-          };
-        }
-
-        for (let i = 22; i <= index; i += 1) {
-          if (budgetMs <= 0 || performance.now() - start > budgetMs) {
-            return {
-              label: `greater than ${lastResolvedName}`,
-              source: "generated-limit",
-              sourceLabel: "unresolved beyond verified real scale table",
-              boundaryStatus: "outside supported boundary",
-            };
-          }
-
-          lastResolvedName = buildGeneratedIllionName(i);
-        }
-
-        return {
-          label: lastResolvedName,
-          source: "generated",
-          sourceLabel: "generated helper",
-          boundaryStatus: "within supported range",
-        };
-      }
-
-      function resolveScaleDescriptorFromValue(rawValue, budgetMs) {
-        const text = String(rawValue).trim();
-        const digitsOnly = text.replace(/[^\d]/g, "");
-        if (!digitsOnly) {
-          return { label: "sub-thousand", source: "real", sourceLabel: "verified real table", boundaryStatus: "within supported range", digitCount: 0 };
-        }
-
-        const digitCount = digitsOnly.length;
-        const scaleIndex = getScaleIndexFromDigitCount(digitCount);
-        const nameInfo = getScaleNameWithBudget(scaleIndex, budgetMs);
-        return {
-          label: nameInfo.label,
-          source: nameInfo.source,
-          sourceLabel: nameInfo.sourceLabel,
-          boundaryStatus: nameInfo.boundaryStatus,
-          digitCount,
-          scaleIndex,
-        };
-      }
-
-      function renderSanityRow(sample, container) {
-        const item = document.createElement("div");
-        item.className = "check-row";
-
-        const left = document.createElement("div");
-        const title = document.createElement("strong");
-        title.textContent = sample.label;
-        const detail = document.createElement("small");
-        detail.textContent = `expected: ${sample.expected}`;
-
-        left.appendChild(title);
-        left.appendChild(detail);
-
-        const resolved = getScaleNameWithBudget(sample.index, sample.budgetMs ?? SCALE_NAME_BUDGET_MS);
-        const badge = document.createElement("span");
-        const pass = resolved.label === sample.expected && resolved.source === sample.source;
-        badge.className = "badge";
-        badge.dataset.tone = pass ? "good" : "bad";
-        badge.textContent = pass ? "PASS" : "FAIL";
-
-        item.appendChild(left);
-        item.appendChild(badge);
-        container.appendChild(item);
-      }
-
-      const input = document.getElementById("scale-input");
-      const resultName = document.getElementById("scale-result-name");
-      const resultDetail = document.getElementById("scale-result-detail");
-      const resultSource = document.getElementById("scale-result-source");
-      const resultSourceDetail = document.getElementById("scale-result-source-detail");
-      const sanityList = document.getElementById("scale-sanity-list");
-
-      let currentBudgetMs = SCALE_NAME_BUDGET_MS;
-
-      function updateScaleDisplay() {
-        const descriptor = resolveScaleDescriptorFromValue(input ? input.value : "", currentBudgetMs);
-        if (resultName) {
-          resultName.textContent = descriptor.label;
-        }
-        if (resultSource) {
-          resultSource.textContent = descriptor.source;
-        }
-        if (resultDetail) {
-          resultDetail.textContent = descriptor.scaleIndex != null ? `scale index ${descriptor.scaleIndex} · ${descriptor.boundaryStatus || "boundary unknown"}` : "Example output";
-        }
-        if (resultSourceDetail) {
-          resultSourceDetail.textContent =
-            descriptor.sourceLabel || (descriptor.source === "real" ? "verified real table" : descriptor.source === "generated" ? "generated helper" : "unresolved beyond verified real scale table");
-        }
-      }
-
-      if (sanityList) {
-        sanityList.innerHTML = "";
-        SANITY_SAMPLES.forEach((sample) => renderSanityRow(sample, sanityList));
-      }
-
-      if (input) {
-        input.addEventListener("input", updateScaleDisplay);
-      }
-
-      document.querySelectorAll("[data-scale-preset]").forEach((button) => {
-        button.addEventListener("click", () => {
-          if (!input) return;
-          const preset = button.getAttribute("data-scale-preset");
-          if (preset === "__limit__") {
-            currentBudgetMs = 0;
-            input.value = "999999999999999999999";
-          } else {
-            currentBudgetMs = SCALE_NAME_BUDGET_MS;
-            input.value = preset || "";
-          }
-          updateScaleDisplay();
-        });
-      });
-
-      updateScaleDisplay();
-
-      window.getScaleIndexFromDigitCount = getScaleIndexFromDigitCount;
-      window.getRealScaleName = getRealScaleName;
-      window.buildGeneratedIllionName = buildGeneratedIllionName;
-      window.getScaleNameWithBudget = getScaleNameWithBudget;
-    })();
-  </script>
+  <script type="module" src="./src/main.js"></script>
 </body>
 </html>
